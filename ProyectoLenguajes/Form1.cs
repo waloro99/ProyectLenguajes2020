@@ -41,5 +41,10 @@ namespace ProyectoLenguajes
             Bitmap imagen = new Bitmap(Application.StartupPath + @"\img\ima_archivo2.png");
             button1.Image = imagen;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
