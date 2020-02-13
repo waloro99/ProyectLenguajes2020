@@ -44,7 +44,25 @@ namespace ProyectoLenguajes
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //return config start
+            button2.Enabled = false;
+            textBox1.Enabled = false;
+        }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string PathFile = string.Empty;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                PathFile = openFileDialog.FileName;
+                button2.Enabled = true;
+                textBox1.Enabled = true;
+            }
+
+            textBox1.Text = PathFile;
         }
     }
 }
