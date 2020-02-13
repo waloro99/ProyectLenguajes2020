@@ -1,0 +1,9 @@
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\obj\Debug\ProyectoLenguajes.csprojAssemblyReference.cache
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\obj\Debug\ProyectoLenguajes.Form1.resources
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\obj\Debug\ProyectoLenguajes.csproj.GenerateResource.cache
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\bin\Debug\ProyectoLenguajes.exe.config
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\bin\Debug\ProyectoLenguajes.exe
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\bin\Debug\ProyectoLenguajes.pdb
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\obj\Debug\ProyectoLenguajes.Properties.Resources.resources
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\obj\Debug\ProyectoLenguajes.exe
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\obj\Debug\ProyectoLenguajes.pdb
