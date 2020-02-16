@@ -8,10 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+
 namespace ProyectoLenguajes
 {
     public partial class Form1 : Form
     {
+
+        public string PathFile = string.Empty; // var path the file
+
         public Form1()
         {
 
@@ -26,7 +30,8 @@ namespace ProyectoLenguajes
             //instance
             Bitmap imagen = new Bitmap(Application.StartupPath + @"\img\ima_archivo1.png");
             button1.Image = imagen;
-        }
+
+    }
 
         //method for back imagen original 
         private void Quit_button(object obj, EventArgs evt)
@@ -44,17 +49,24 @@ namespace ProyectoLenguajes
 
         private void button2_Click(object sender, EventArgs e)
         {
+            //instance class
+            ReadFileC rf = new ReadFileC();
+
             //return config start
             button2.Enabled = false;
             textBox1.Enabled = false;
+
+            //get data the first line
+            string res = rf.ReadFile(PathFile);
+            MessageBox.Show(res);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string PathFile = string.Empty;
+
 
             OpenFileDialog openFileDialog = new OpenFileDialog();
-
+            openFileDialog.Filter = "Text documents (.txt)|*.txt"; //only file .txt
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
                 PathFile = openFileDialog.FileName;
