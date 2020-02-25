@@ -58,11 +58,21 @@ namespace ProyectoLenguajes
 
             //get data the first line
             string[] res = rf.ReadFile(PathFile);
+            List<string> n = new List<string>();
+            List<string> n2 = new List<string>();
+            List<string> n3 = new List<string>();
+            n = rf.SplitSets(res);
+         //  n2 = rf.SplitTokens(res);
+         //   n3 = rf.SplitActions(res);
+            foreach (var item in n3)
+            {
+                MessageBox.Show(item);
+            }
             //foreach (var item in res)
             //{
             //    MessageBox.Show(item);
             //}
-            MessageBox.Show(res.Count().ToString());//cantidad de lineas leidas
+            //MessageBox.Show(res.Count().ToString());//cantidad de lineas leidas
         }
 
         private void button1_Click(object sender, EventArgs e)
