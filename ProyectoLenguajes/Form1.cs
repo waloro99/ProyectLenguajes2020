@@ -61,16 +61,18 @@ namespace ProyectoLenguajes
             List<string> n = new List<string>();
             List<string> n2 = new List<string>();
             List<string> n3 = new List<string>();
-            n = rf.SplitSets(res);
-         //  n2 = rf.SplitTokens(res);
-         //   n3 = rf.SplitActions(res);
-            foreach (var item in n3)
+            List<string> n4 = new List<string>();
+            //n = rf.SplitSets(res);
+            //n2 = rf.SplitTokens(res);
+            //n3 = rf.SplitActions(res);
+            n4 = rf.SplitError(res);
+            foreach (var item in n4)
             {
                 MessageBox.Show(item);
             }
             //foreach (var item in res)
             //{
-            //    MessageBox.Show(item);
+            //    MessageBox.Show(item + "-1");
             //}
             //MessageBox.Show(res.Count().ToString());//cantidad de lineas leidas
         }
