@@ -101,7 +101,7 @@ namespace ProyectoLenguajes
             }
             else
             {
-                MessageBox.Show("Archivo Correcto"); //CONTINUED
+                MessageBox.Show("Primer Filtro Correcto"); //CONTINUED
             }
 
 
