@@ -96,7 +96,7 @@ namespace ProyectoLenguajes
             {
                 if (WordIncorrect(T_Lineas[i], "ERROR ="))
                 {
-                    i++; //diferent the word SETS
+                   // i++; //diferent the word SETS
                     while (i < T_Lineas.Count())
                     {
                         Error.Add(T_Lineas[i]); //add item at list 
