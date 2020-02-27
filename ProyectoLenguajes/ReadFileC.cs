@@ -28,41 +28,58 @@ namespace ProyectoLenguajes
         //method for separate section sets
         public List<string> SplitSets(string [] T_Lineas)
         {
-            for(int i = 0; i<T_Lineas.Count();i++)
+            bool verificar = false;
+            for (int i = 0; i<T_Lineas.Count();i++)
             {
                 if (WordIncorrect(T_Lineas[i], "SETS"))
                 {
                     i++; //diferent the word SETS
-                    while (T_Lineas[i] != "TOKENS")
+                    while (WordIncorrect(T_Lineas[i], "TOKENS") != true && verificar == false)
                     {
                         Sets.Add(T_Lineas[i]); //add item at list 
-                        i++; 
+                        i++;
+                        if (i == (T_Lineas.Count()-1))
+                            verificar = true;
                     }
-                    i = T_Lineas.Count(); //end bucle
+                    verificar = true;
+                    i = (T_Lineas.Count()-1); //end bucle
                 }
-
+                if (i == (T_Lineas.Count() - 1) & verificar == false) //last iteration
+                {
+                    Sets.Add("ERROR");
+                }
             }
             return Sets; //send data only SETS
         }
+        //tested completed
 
         //method for separate section tokens
         public List<string> SplitTokens(string[] T_Lineas)
         {
+            bool verificar = false;
             for (int i = 0; i < T_Lineas.Count(); i++)
             {
                 if (WordIncorrect(T_Lineas[i], "TOKENS"))
                 {
                     i++; //diferent the word SETS
-                    while ( WordIncorrect(T_Lineas[i],"ACTIONS") != true)
+                    while ( WordIncorrect(T_Lineas[i],"ACTIONS") != true && verificar == false)
                     {
                         Tokens.Add(T_Lineas[i]); //add item at list 
                         i++;
+                        if (i == (T_Lineas.Count() - 1))
+                            verificar = true;
                     }
+                    verificar = true;
                     i = T_Lineas.Count(); //end bucle
+                }
+                if (i == (T_Lineas.Count() - 1) & verificar == false) //last iteration
+                {
+                    Tokens.Add("ERROR");
                 }
             }
             return Tokens;//send data only TOKENS
         }
+        //tested completed
 
         //method for separate section actions
         public List<string> SplitActions(string[] T_Lineas)
@@ -73,21 +90,25 @@ namespace ProyectoLenguajes
                 if (WordIncorrect(T_Lineas[i], "ACTIONS"))
                 {
                     i++; //diferent the word SETS
-                    while (i < T_Lineas.Count())
+                    while (WordIncorrect(T_Lineas[i], "ERROR =") != true && verificar == false)
                     {
                         Actions.Add(T_Lineas[i]); //add item at list 
                         i++;
+                        if (i == (T_Lineas.Count() - 1))
+                            verificar = true;
                     }
                     verificar = true;
+                    i = (T_Lineas.Count()-1); //end bucle
                 }
                 if (i == (T_Lineas.Count()-1) & verificar == false) //last iteration
                 {
-                    Actions.Add("ERROR EN SECCION ACTIONS");
+                    Actions.Add("ERROR");
                 }
             }
             return Actions;//send data only TOKENS
         }
-
+        //tested completed
+        
         //method for separate section error
         public List<string> SplitError(string[] T_Lineas)
         {

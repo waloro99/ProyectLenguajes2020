@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
+
 namespace ProyectoLenguajes
 {
     public partial class Form1 : Form
@@ -49,32 +50,7 @@ namespace ProyectoLenguajes
 
         private void button2_Click(object sender, EventArgs e)
         {
-            //instance class
-            ReadFileC rf = new ReadFileC();
-
-            //return config start
-            button2.Enabled = false;
-            textBox1.Enabled = false;
-
-            //get data the first line
-            string[] res = rf.ReadFile(PathFile);
-            List<string> n = new List<string>();
-            List<string> n2 = new List<string>();
-            List<string> n3 = new List<string>();
-            List<string> n4 = new List<string>();
-            //n = rf.SplitSets(res);
-            //n2 = rf.SplitTokens(res);
-            //n3 = rf.SplitActions(res);
-            n4 = rf.SplitError(res);
-            foreach (var item in n4)
-            {
-                MessageBox.Show(item);
-            }
-            //foreach (var item in res)
-            //{
-            //    MessageBox.Show(item + "-1");
-            //}
-            //MessageBox.Show(res.Count().ToString());//cantidad de lineas leidas
+            Semantic_Analysis();    //Semantic analysis      
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -91,6 +67,80 @@ namespace ProyectoLenguajes
             }
 
             textBox1.Text = PathFile;
+        }
+
+        //method to do semantic analysis
+        public void Semantic_Analysis()
+        {
+            //instance class
+            ReadFileC rf = new ReadFileC();
+
+            //return config start
+            button2.Enabled = false;
+            textBox1.Enabled = false;
+
+            //get data from the all file
+            string[] res = rf.ReadFile(PathFile);
+
+            //lists
+            List<string> L_Sets = new List<string>(); //save data section sets
+            List<string> L_Tokens = new List<string>(); //save data section sets
+            List<string> L_Actions = new List<string>(); //save data section sets
+            List<string> L_Error = new List<string>(); //save data section sets
+
+            //add items at lists
+            L_Sets = rf.SplitSets(res);  //tested
+            L_Tokens = rf.SplitTokens(res); //tested
+            L_Actions = rf.SplitActions(res);  //tested
+            L_Error = rf.SplitError(res);  //tested
+
+            //firs filter (key words)
+            if (F_KeyWords(L_Tokens,L_Actions,L_Error,res) != "GG")
+            {
+                MessageBox.Show(F_KeyWords(L_Tokens, L_Actions, L_Error, res)); //end program
+            }
+            else
+            {
+                MessageBox.Show("Archivo Correcto"); //CONTINUED
+            }
+
+
+            //test filling sections in lists
+            //foreach (var item in L_Error)
+            //{
+            //    MessageBox.Show(item);
+            //}
+            //test filling of hoc the file is separated by lines
+            //foreach (var item in res)
+            //{
+            //    MessageBox.Show(item + "-1");
+            //}
+            //MessageBox.Show(res.Count().ToString());//number of lines read
+        }
+
+        //method for verify correct opertation of sections
+        private string F_KeyWords(List<string> t, List<string> a, List<string> e, string[] f)
+        {
+            string res = "";//send answer
+            //get first item at each list
+            //no included sets becasuse it can come or not
+            if (t.ElementAt(0) == "ERROR")
+            {
+                res = "ERROR PALABRA CLAVE = 'TOKENS' ";
+            }
+            else if (a.ElementAt(0) == "ERROR")
+            {
+                res = "ERROR PALABRA CLAVE = 'ACTIONS' ";
+            }
+            else if (e.ElementAt(0) == "ERROR")
+            {
+                res = "ERROR PALABRA CLAVE = 'ERROR =' ";
+            }
+            else
+            {
+                res = "GG";   //first filter correct
+            }
+            return res;
         }
     }
 }
