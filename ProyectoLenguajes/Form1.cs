@@ -102,6 +102,22 @@ namespace ProyectoLenguajes
             else
             {
                 MessageBox.Show("Primer Filtro Correcto"); //CONTINUED
+
+                //solo de prueba 
+                //string prueba = "Hola mundo)";
+                //char[] prueba2 = prueba.ToArray();
+
+                //foreach (var item in prueba2)
+                //{
+                //    if (item == ')')//item.CompareTo('o') == 0)
+                //        MessageBox.Show(item.ToString());
+                //}
+                Stack<string> prueba = new Stack<string>();
+                //prueba.Push("hola");
+                //prueba.Push("adios");
+                if(prueba.Peek() != null)//prueba.Count() > 0)
+                    MessageBox.Show(prueba.Peek());
+                //MessageBox.Show(prueba2.Length.ToString());
             }
 
 
