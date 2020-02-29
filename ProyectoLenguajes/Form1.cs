@@ -170,6 +170,8 @@ namespace ProyectoLenguajes
                 res = "GG";   //first filter correct
             }
             return res;
-        }
+        }//tested
+
+
     }
 }

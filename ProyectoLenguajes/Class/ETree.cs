@@ -12,7 +12,7 @@ namespace ProyectoLenguajes.Class
         public Stack<string> T = new Stack<string>(); //Stack for st
         public Stack<Nodo> S = new Stack<Nodo>(); //stack for tree
         public char[] unario = { '*', '+', '?' }; //arrray symbols used in ER
-        public char[] op = { '*', '+', '(', ')', '?', '|',' '}; //arrray symbols used in ER
+        public char[] op = { '*', '+', '(', ')', '?', '|', ' ' }; //arrray symbols used in ER
         public string cadena = ""; //Save InOrder 
         //Space symbol equals concatenation
 
@@ -33,7 +33,7 @@ namespace ProyectoLenguajes.Class
                 char token = tokens[cts]; //Step 2.	Obtener token ---------------------------------------------
 
                 //yes false then token = st
-                if (!Is_op(token)) //Step 3. Si token es st ---------------------------------------------------
+                if (Is_st(token)) //Step 3. Si token es st ---------------------------------------------------
                 {
                     //a. Convertir st en árbol
                     Nodo nuevo = new Nodo();
@@ -119,7 +119,7 @@ namespace ProyectoLenguajes.Class
                     }
                     //b. Sino si T no está vacia y el “top” op en T es diferente
                     //a “(“ y precedencia de token es menor a último op en T
-                    else if ( (T.Count() > 0) && (T.Peek() != "(") && (Is_Precedence(token,T.Peek())) ) //no tested precedence
+                    else if ((T.Count() > 0) && (T.Peek() != "(") && (Is_Precedence(token, T.Peek()))) //no tested precedence
                     {
                         //i. Extraer de T a op, convertirlo en árbol y llamarlo temp
                         Nodo temp = new Nodo();
@@ -208,7 +208,7 @@ namespace ProyectoLenguajes.Class
                 //Step 12. Hacer “pop” a S y retornar el valor ----------------------------------------------------
                 return S;
             }
-            
+
         }//tested
 
         //method to know if the character of the ER is an op
@@ -249,6 +249,25 @@ namespace ProyectoLenguajes.Class
             }
             return false;
         }//tested
+
+        //metho to know if the character of the ER is st
+        private bool Is_st(char t)
+        {
+            //create object
+            Token nuevo = new Token();
+            //create list
+            List<Token> tokens = new List<Token>();
+            //Fill list
+            tokens = nuevo.Insert_Tokens();
+
+            string t_char = t.ToString(); //compatible
+            foreach (var item in tokens)
+            {
+                if (t_char == item.Name) //yes return true
+                    return true;
+            }
+            return false; //no return false
+        }
 
         //method for walk the tree in order
         public void InOrder(Nodo n)
