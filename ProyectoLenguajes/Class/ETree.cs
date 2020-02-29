@@ -119,7 +119,7 @@ namespace ProyectoLenguajes.Class
                     }
                     //b. Sino si T no está vacia y el “top” op en T es diferente
                     //a “(“ y precedencia de token es menor a último op en T
-                    else if ( (T.Peek() != null) && (T.Peek() != "(") && (Is_Precedence(token,T.Peek())) ) //no tested precedence
+                    else if ( (T.Count() > 0) && (T.Peek() != "(") && (Is_Precedence(token,T.Peek())) ) //no tested precedence
                     {
                         //i. Extraer de T a op, convertirlo en árbol y llamarlo temp
                         Nodo temp = new Nodo();
@@ -209,7 +209,7 @@ namespace ProyectoLenguajes.Class
                 return S;
             }
             
-        }//no tested
+        }//tested
 
         //method to know if the character of the ER is an op
         private bool Is_op(char t)
@@ -220,7 +220,7 @@ namespace ProyectoLenguajes.Class
                     return true; //yes is a token op
             }
             return false; //is st
-        }//no tested
+        }//tested
 
         //method to know if the character of the ER is unario
         private bool Is_Unario(char t)
@@ -231,7 +231,7 @@ namespace ProyectoLenguajes.Class
                     return true; //yes is a token unario
             }
             return false;
-        }//no tested
+        }//tested
 
         //Method to know if the token is precedent or not
         private bool Is_Precedence(char t, string op)
@@ -248,7 +248,7 @@ namespace ProyectoLenguajes.Class
                 return true;
             }
             return false;
-        }//no tested
+        }//tested
 
         //method for walk the tree in order
         public void InOrder(Nodo n)
@@ -258,7 +258,7 @@ namespace ProyectoLenguajes.Class
             cadena = cadena + " " + n.valor;
             if (n.hd != null)
                 InOrder(n.hd);
-        }
+        }//tested
 
     }
 

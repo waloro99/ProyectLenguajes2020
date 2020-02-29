@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ProyectoLenguajes.Class;
+
 
 
 
@@ -103,7 +105,18 @@ namespace ProyectoLenguajes
             {
                 MessageBox.Show("Primer Filtro Correcto"); //CONTINUED
 
-                //solo de prueba 
+                //Probar arbol
+                ETree nuevo = new ETree();
+
+                //string ER
+                string pruebaER = "(a+ b (c (a|b|c)+ c (a|b)?)+) #";//"((a|b)+ a) #";//si funciona con los dos
+                Stack<Nodo> arbol = new Stack<Nodo>();
+                arbol = nuevo.Insert(pruebaER); //create tree
+                nuevo.InOrder(arbol.Pop());
+                MessageBox.Show(nuevo.cadena);
+
+
+                //only tested 
                 //string prueba = "Hola mundo)";
                 //char[] prueba2 = prueba.ToArray();
 
@@ -112,11 +125,11 @@ namespace ProyectoLenguajes
                 //    if (item == ')')//item.CompareTo('o') == 0)
                 //        MessageBox.Show(item.ToString());
                 //}
-                Stack<string> prueba = new Stack<string>();
+                //Stack<string> prueba = new Stack<string>();
                 //prueba.Push("hola");
                 //prueba.Push("adios");
-                if(prueba.Peek() != null)//prueba.Count() > 0)
-                    MessageBox.Show(prueba.Peek());
+                //if(prueba.Peek() != null)//prueba.Count() > 0)
+                //    MessageBox.Show(prueba.Peek());
                 //MessageBox.Show(prueba2.Length.ToString());
             }
 
