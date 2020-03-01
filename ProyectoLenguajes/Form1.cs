@@ -109,26 +109,32 @@ namespace ProyectoLenguajes
                 //Create string ER
                 string ER_sets1 = "(a+ f+ g (f+ h (a|b|c|i) h (j|k)?)+) #"; //LETRA   = 'A'..'Z'+'a'..'z'+'_'
                 string ER_sets2 = "(a+ f+ g (f+ d+ l c+ m j?)+) #"; //CHARSET = CHR(32)..CHR(254)
+                string ER_tokens = "(e+ f+ c+ f* g f* ((h (a|i) h)*|(a|f|n)*|(a|b|f|i)*)+) #"; //'"' CHARSET '"'|''' CHARSET ''' // LETRA ( LETRA | DIGITO )*   { RESERVADAS() } 
 
                 //Create tree for each ER...
                 ETree T_Sets = new ETree();
                 ETree T_Sets2 = new ETree();
+                ETree T_Tokens = new ETree();
 
                 //Create stack for each ER
                 Stack<Nodo> Tree_Sets = new Stack<Nodo>();
                 Stack<Nodo> Tree_Sets2 = new Stack<Nodo>();
+                Stack<Nodo> Tree_Tokens = new Stack<Nodo>();
 
                 //Insert value in differents trees
                 Tree_Sets = T_Sets.Insert(ER_sets1);
                 Tree_Sets2 = T_Sets2.Insert(ER_sets2);
+                Tree_Tokens = T_Tokens.Insert(ER_tokens);
 
                 //recorrido
                 T_Sets.InOrder(Tree_Sets.Pop());
                 T_Sets2.InOrder(Tree_Sets2.Pop());
+                T_Tokens.InOrder(Tree_Tokens.Pop());
 
                 //mostrar recorrido
                 MessageBox.Show(T_Sets.cadena);
                 MessageBox.Show(T_Sets2.cadena);
+                MessageBox.Show(T_Tokens.cadena);
 
 
                 //Probar arbol
@@ -161,14 +167,14 @@ namespace ProyectoLenguajes
 
 
             //test filling sections in lists
-            //foreach (var item in L_Error)
-            //{
-            //    MessageBox.Show(item);
-            //}
+            foreach (var item in L_Actions)
+            {
+                MessageBox.Show(item);
+            }
             //test filling of hoc the file is separated by lines
             //foreach (var item in res)
             //{
-            //    MessageBox.Show(item + "-1");
+            //    MessageBox.Show(item);
             //}
             //MessageBox.Show(res.Count().ToString());//number of lines read
         }

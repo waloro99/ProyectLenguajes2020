@@ -128,7 +128,7 @@ namespace ProyectoLenguajes.Class
             //name token
             i.Name = "i";
             //values token = TOKEN --> reserved word
-            string I = "_-.,";
+            string I = "_-.,:;=<>+*(){}[]";
             char[] Simbolos = I.ToArray();
             i.Values = Simbolos;
             //insert token in list
@@ -181,6 +181,18 @@ namespace ProyectoLenguajes.Class
             m.Values = Parentesis_Cerrado;
             //insert token in list
             tokens.Add(m);
+
+            //t14
+            //create token
+            Token n = new Token();
+            //name token
+            n.Name = "n";
+            //values token = TOKEN --> reserved word
+            string N = "+*?()|";
+            char[] Signos_Operacion = N.ToArray();
+            n.Values = Signos_Operacion;
+            //insert token in list
+            tokens.Add(n);
 
             //t# case special , end the ER
             //create token
