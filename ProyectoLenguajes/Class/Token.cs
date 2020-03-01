@@ -86,6 +86,18 @@ namespace ProyectoLenguajes.Class
             //insert token in list
             tokens.Add(e);
 
+            //t# case special , end the ER
+            //create token
+            Token t_special = new Token();
+            //name token
+            t_special.Name = "#";
+            //values token = TOKEN --> reserved word
+            string special = "#";
+            char[] specialA = special.ToArray();
+            t_special.Values = specialA;
+            //insert token in list
+            tokens.Add(t_special);
+
             return tokens;//defect
         }
     }
