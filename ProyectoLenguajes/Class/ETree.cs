@@ -267,7 +267,7 @@ namespace ProyectoLenguajes.Class
                     return true;
             }
             return false; //no return false
-        }
+        }//tested
 
         //method for walk the tree in order
         public void InOrder(Nodo n)

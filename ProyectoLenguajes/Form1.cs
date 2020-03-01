@@ -104,16 +104,42 @@ namespace ProyectoLenguajes
             else
             {
                 MessageBox.Show("Primer Filtro Correcto"); //CONTINUED
+                                                           //------------------- SECOND FILTER
+
+                //Create string ER
+                string ER_sets1 = "(a+ f+ g (f+ h (a|b|c|i) h (j|k)?)+) #"; //LETRA   = 'A'..'Z'+'a'..'z'+'_'
+                string ER_sets2 = "(a+ f+ g (f+ d+ l c+ m j?)+) #"; //CHARSET = CHR(32)..CHR(254)
+
+                //Create tree for each ER...
+                ETree T_Sets = new ETree();
+                ETree T_Sets2 = new ETree();
+
+                //Create stack for each ER
+                Stack<Nodo> Tree_Sets = new Stack<Nodo>();
+                Stack<Nodo> Tree_Sets2 = new Stack<Nodo>();
+
+                //Insert value in differents trees
+                Tree_Sets = T_Sets.Insert(ER_sets1);
+                Tree_Sets2 = T_Sets2.Insert(ER_sets2);
+
+                //recorrido
+                T_Sets.InOrder(Tree_Sets.Pop());
+                T_Sets2.InOrder(Tree_Sets2.Pop());
+
+                //mostrar recorrido
+                MessageBox.Show(T_Sets.cadena);
+                MessageBox.Show(T_Sets2.cadena);
+
 
                 //Probar arbol
-                ETree nuevo = new ETree();
+                //ETree nuevo = new ETree();
 
                 //string ER
-                string pruebaER = "(a+ b (c (a|b|c)+ c (a|b)?)+) #";//"((a|b)+ a) #";//si funciona con los dos
-                Stack<Nodo> arbol = new Stack<Nodo>();
-                arbol = nuevo.Insert(pruebaER); //create tree
-                nuevo.InOrder(arbol.Pop());
-                MessageBox.Show(nuevo.cadena);
+                //string pruebaER = "(a+ b (c (a|b|c)+ c (a|b)?)+) #";//"((a|b)+ a) #";//si funciona con los dos
+                //Stack<Nodo> arbol = new Stack<Nodo>();
+                //arbol = nuevo.Insert(pruebaER); //create tree
+                //nuevo.InOrder(arbol.Pop());
+                //MessageBox.Show(nuevo.cadena);
 
 
                 //only tested 

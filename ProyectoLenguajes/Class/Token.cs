@@ -86,6 +86,102 @@ namespace ProyectoLenguajes.Class
             //insert token in list
             tokens.Add(e);
 
+            //t6
+            //create token
+            Token f = new Token();
+            //name token
+            f.Name = "f";
+            //values token = TOKEN --> reserved word
+            string F = " ";
+            char[] Espacio = F.ToArray();
+            f.Values = Espacio;
+            //insert token in list
+            tokens.Add(f);
+
+            //t7
+            //create token
+            Token g = new Token();
+            //name token
+            g.Name = "g";
+            //values token = TOKEN --> reserved word
+            string G = "=";
+            char[] Igual = G.ToArray();
+            g.Values = Igual;
+            //insert token in list
+            tokens.Add(g);
+
+            //t8
+            //create token
+            Token h = new Token();
+            //name token
+            h.Name = "h";
+            //values token = TOKEN --> reserved word
+            string H = "'";
+            char[] Comilla_simple = H.ToArray();
+            h.Values = Comilla_simple;
+            //insert token in list
+            tokens.Add(h);
+
+            //t9
+            //create token
+            Token i = new Token();
+            //name token
+            i.Name = "i";
+            //values token = TOKEN --> reserved word
+            string I = "_-.,";
+            char[] Simbolos = I.ToArray();
+            i.Values = Simbolos;
+            //insert token in list
+            tokens.Add(i);
+
+            //t10
+            //create token
+            Token j = new Token();
+            //name token
+            j.Name = "j";
+            //values token = TOKEN --> reserved word
+            string J = "..";
+            char[] Dos_puntos = J.ToArray();
+            j.Values = Dos_puntos;
+            //insert token in list
+            tokens.Add(j);
+
+            //t11
+            //create token
+            Token k = new Token();
+            //name token
+            k.Name = "k";
+            //values token = TOKEN --> reserved word
+            string K = "+";
+            char[] Concatenar = K.ToArray();
+            k.Values = Concatenar;
+            //insert token in list
+            tokens.Add(k);
+
+            //t12
+            //create token
+            Token l = new Token();
+            //name token
+            l.Name = "l";
+            //values token = TOKEN --> reserved word
+            string L = "(";
+            char[] Parentesis_Abierto = L.ToArray();
+            l.Values = Parentesis_Abierto;
+            //insert token in list
+            tokens.Add(l);
+
+            //t13
+            //create token
+            Token m = new Token();
+            //name token
+            m.Name = "m";
+            //values token = TOKEN --> reserved word
+            string M = ")";
+            char[] Parentesis_Cerrado = M.ToArray();
+            m.Values = Parentesis_Cerrado;
+            //insert token in list
+            tokens.Add(m);
+
             //t# case special , end the ER
             //create token
             Token t_special = new Token();
