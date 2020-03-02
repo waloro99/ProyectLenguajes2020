@@ -110,31 +110,43 @@ namespace ProyectoLenguajes
                 string ER_sets1 = "(a+ f+ g (f+ h (a|b|c|i) h (j|k)?)+) #"; //LETRA   = 'A'..'Z'+'a'..'z'+'_'
                 string ER_sets2 = "(a+ f+ g (f+ d+ l c+ m j?)+) #"; //CHARSET = CHR(32)..CHR(254)
                 string ER_tokens = "(e+ f+ c+ f* g f* ((h (a|i) h)*|(a|f|n)*|(a|b|f|i)*)+) #"; //'"' CHARSET '"'|''' CHARSET ''' // LETRA ( LETRA | DIGITO )*   { RESERVADAS() } 
+                string ER_actions = "(c+ f g f h a+ h) #"; //18 = 'PROGRAM'
+                string ER_error = "(ñ+ f g f c+) #"; //ERROR = 54
 
                 //Create tree for each ER...
                 ETree T_Sets = new ETree();
                 ETree T_Sets2 = new ETree();
                 ETree T_Tokens = new ETree();
+                ETree T_Actions = new ETree();
+                ETree T_Error = new ETree();
 
                 //Create stack for each ER
                 Stack<Nodo> Tree_Sets = new Stack<Nodo>();
                 Stack<Nodo> Tree_Sets2 = new Stack<Nodo>();
                 Stack<Nodo> Tree_Tokens = new Stack<Nodo>();
+                Stack<Nodo> Tree_Actions = new Stack<Nodo>();
+                Stack<Nodo> Tree_Error = new Stack<Nodo>();
 
                 //Insert value in differents trees
                 Tree_Sets = T_Sets.Insert(ER_sets1);
                 Tree_Sets2 = T_Sets2.Insert(ER_sets2);
                 Tree_Tokens = T_Tokens.Insert(ER_tokens);
+                Tree_Actions = T_Actions.Insert(ER_actions);
+                Tree_Error = T_Error.Insert(ER_error);
 
                 //recorrido
                 T_Sets.InOrder(Tree_Sets.Pop());
                 T_Sets2.InOrder(Tree_Sets2.Pop());
                 T_Tokens.InOrder(Tree_Tokens.Pop());
+                T_Actions.InOrder(Tree_Actions.Pop());
+                T_Error.InOrder(Tree_Error.Pop());
 
                 //mostrar recorrido
                 MessageBox.Show(T_Sets.cadena);
                 MessageBox.Show(T_Sets2.cadena);
                 MessageBox.Show(T_Tokens.cadena);
+                MessageBox.Show(T_Actions.cadena);
+                MessageBox.Show(T_Error.cadena);
 
 
                 //Probar arbol
@@ -167,7 +179,19 @@ namespace ProyectoLenguajes
 
 
             //test filling sections in lists
+            //foreach (var item in L_Sets)
+            //{
+            //    MessageBox.Show(item);
+            //}
+            //foreach (var item in L_Tokens)
+            //{
+            //    MessageBox.Show(item);
+            //}
             //foreach (var item in L_Actions)
+            //{
+            //    MessageBox.Show(item);
+            //}
+            //foreach (var item in L_Error)
             //{
             //    MessageBox.Show(item);
             //}
@@ -187,15 +211,15 @@ namespace ProyectoLenguajes
             //no included sets becasuse it can come or not
             if (t.ElementAt(0) == "ERROR")
             {
-                res = "ERROR PALABRA CLAVE = 'TOKENS' ";
+                res = "ERROR FALTA PALABRA CLAVE = 'TOKENS' ";
             }
             else if (a.ElementAt(0) == "ERROR")
             {
-                res = "ERROR PALABRA CLAVE = 'ACTIONS' ";
+                res = "ERROR FALTA PALABRA CLAVE = 'ACTIONS' O 'RESERVADAS(){}' ";
             }
             else if (e.ElementAt(0) == "ERROR")
             {
-                res = "ERROR PALABRA CLAVE = 'ERROR =' ";
+                res = "ERROR FALTA PALABRA CLAVE = 'ERROR =' ";
             }
             else
             {

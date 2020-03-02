@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using ProyectoLenguajes.Class;
 
 namespace ProyectoLenguajes
 {
@@ -209,5 +210,50 @@ namespace ProyectoLenguajes
             return false; // yes the line is empty
         }
 
+        //method to know read line for line the section sets
+        public string ReadSets(List<string> Set, List<Token> tokens, string ER,string ER2)
+        {
+            //recorre lista
+            foreach (var item in Set)
+            {
+                
+            }
+
+            return "GG";//file correct
+        }
+
+        //method to know read line for line the section sets
+        public string ReadError(List<string> Error, List<Token> tokens, string ER)
+        {
+            //recorre lista
+            foreach (var item in Error)
+            {
+                if (item.Contains("ERROR"))
+                {
+                    if (item.Contains("="))
+                    {
+
+                    }
+                }
+                else
+                {
+                    return item + " No contiene la palabra clave 'ERROR' ";
+                }
+            }
+
+            return "GG";//file correct
+        }
+
+
+        //method for comparation with values the token
+        public bool Is_Token(string c1, Token c2)
+        {
+            foreach (var item in c2.Values)
+            {
+                if (c1 == item.ToString())
+                    return true;
+            }
+            return false;
+        }
     }
 }
