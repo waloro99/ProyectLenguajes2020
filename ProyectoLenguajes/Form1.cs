@@ -97,9 +97,9 @@ namespace ProyectoLenguajes
             L_Error = rf.SplitError(res);  //tested
 
             //firs filter (key words)
-            if (F_KeyWords(L_Tokens,L_Actions,L_Error,res) != "GG")
+            if (F_KeyWords(L_Tokens,L_Actions,L_Error) != "GG")
             {
-                MessageBox.Show(F_KeyWords(L_Tokens, L_Actions, L_Error, res)); //end program
+                MessageBox.Show(F_KeyWords(L_Tokens, L_Actions, L_Error)); //end program
             }
             else
             {
@@ -167,10 +167,10 @@ namespace ProyectoLenguajes
 
 
             //test filling sections in lists
-            foreach (var item in L_Actions)
-            {
-                MessageBox.Show(item);
-            }
+            //foreach (var item in L_Actions)
+            //{
+            //    MessageBox.Show(item);
+            //}
             //test filling of hoc the file is separated by lines
             //foreach (var item in res)
             //{
@@ -180,7 +180,7 @@ namespace ProyectoLenguajes
         }
 
         //method for verify correct opertation of sections
-        private string F_KeyWords(List<string> t, List<string> a, List<string> e, string[] f)
+        private string F_KeyWords(List<string> t, List<string> a, List<string> e)
         {
             string res = "";//send answer
             //get first item at each list

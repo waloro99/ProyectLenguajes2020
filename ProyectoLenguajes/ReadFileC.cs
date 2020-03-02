@@ -129,6 +129,8 @@ namespace ProyectoLenguajes
                             {
                                 v3 = true;
                             }
+                            if (i == (T_Lineas.Count() - 1))
+                                verificar = true;
                             i++;
                         }                      
                     }
@@ -137,12 +139,15 @@ namespace ProyectoLenguajes
                 }
                 if (i == (T_Lineas.Count()-1) & verificar == false) //last iteration
                 {
+                    Actions.Clear();
                     Actions.Add("ERROR");
+                    return Actions;
                 }
-                if (v1 == false || v2 == false || v3 == false)
+                if ((v1 == false || v2 == false || v3 == false)  && i == (T_Lineas.Count() - 1))
                 {
                     Actions.Clear();
                     Actions.Add("ERROR");
+                    return Actions;
                 }
             }
             return Actions;//send data only TOKENS
