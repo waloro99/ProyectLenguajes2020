@@ -28,13 +28,13 @@ namespace ProyectoLenguajes
             button1.MouseClick += this.Press_button;
 
             //mouse move
-            button1.MouseLeave += this.Quit_button; 
+            button1.MouseLeave += this.Quit_button;
 
             //instance
             Bitmap imagen = new Bitmap(Application.StartupPath + @"\img\ima_archivo1.png");
             button1.Image = imagen;
 
-    }
+        }
 
         //method for back imagen original 
         private void Quit_button(object obj, EventArgs evt)
@@ -97,7 +97,7 @@ namespace ProyectoLenguajes
             L_Error = rf.SplitError(res);  //tested
 
             //firs filter (key words)
-            if (F_KeyWords(L_Tokens,L_Actions,L_Error) != "GG")
+            if (F_KeyWords(L_Tokens, L_Actions, L_Error) != "GG")
             {
                 MessageBox.Show(F_KeyWords(L_Tokens, L_Actions, L_Error)); //end program
             }
@@ -141,19 +141,19 @@ namespace ProyectoLenguajes
                 T_Actions.InOrder(Tree_Actions.Pop());
                 T_Error.InOrder(Tree_Error.Pop());
 
-                //mostrar recorrido
-                MessageBox.Show(T_Sets.cadena);
-                MessageBox.Show(T_Sets2.cadena);
-                MessageBox.Show(T_Tokens.cadena);
-                MessageBox.Show(T_Actions.cadena);
-                MessageBox.Show(T_Error.cadena);
+                //mostrar recorrido de arboles
+                //MessageBox.Show(T_Sets.cadena);
+                //MessageBox.Show(T_Sets2.cadena);
+                //MessageBox.Show(T_Tokens.cadena);
+                //MessageBox.Show(T_Actions.cadena);
+                //MessageBox.Show(T_Error.cadena);
 
 
 
 
 
 
-                //----------------------------- READ ERROR -----------------------------------------------
+                //----------------------------- READ SECTIONS -----------------------------------------------
 
                 //send all tokens 
                 Token t = new Token();
@@ -161,17 +161,31 @@ namespace ProyectoLenguajes
                 L_t = t.Insert_Tokens();
 
 
+                //filter action
+                if(rf.ReadAction(L_Actions,L_t,ER_actions) != "GG")
+                {
+                    string er = rf.ReadAction(L_Actions, L_t, ER_actions);
+                    char[] x = er.ToArray();
+                    int columna = Error_Columna(x);
+                    int line = Error_Line(x, res);
+                    MessageBox.Show("Error en la linea: " + line + " Columna: " + columna);
+                }
                 //filter error
-                if (rf.ReadError(L_Error, L_t, ER_error) != "GG")
+                else if (rf.ReadError(L_Error, L_t, ER_error) != "GG")
                 {
                     string er = rf.ReadError(L_Error, L_t, ER_error);
                     char[] x = er.ToArray();
-                    int line = Error_Line(x,res);
-                    MessageBox.Show("Error en la linea: " + line + " Columna: " + x[0]);
+                    int columna = Error_Columna(x);
+                    int line = Error_Line(x, res);
+                    MessageBox.Show("Error en la linea: " + line + " Columna: " + columna);
+                }
+                else
+                {
+                    MessageBox.Show("Archivo leido correctamente :)");
                 }
 
-        
-    
+
+
 
                 //Probar arbol
                 //ETree nuevo = new ETree();
@@ -252,16 +266,33 @@ namespace ProyectoLenguajes
             return res;
         }//tested
 
-        private int Error_Line(char[] err , string[] res)
+        private int Error_Line(char[] err, string[] res)
         {
             string cadena = "";
-
+            char[] numeros = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            bool v = false;
             for (int i = 0; i < err.Length; i++)
             {
-                if (i!=0)
+                if (i != 0)
                 {
-                    cadena += err[i];
+                    if (i < 3 )
+                    {
+                        for (int j = 0; j < numeros.Length; j++)
+                        {
+                            if (err[i] == numeros[j])
+                            {
+                                v = true;
+                            }
+                        }
+                        if (v == false)
+                            cadena += err[i];
+                    }
+                    else
+                    {
+                        cadena += err[i];
+                    }
                 }
+                v = false;
             }
 
             for (int i = 0; i < res.Length; i++)
@@ -273,6 +304,26 @@ namespace ProyectoLenguajes
             }
             return 0;
 
+        }
+
+        private int Error_Columna(char[] x)
+        {
+            string num = "";
+            char[] numeros = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            int cont = 0;
+
+            for (int j = 0; j < numeros.Length; j++)
+            {
+                if (x[cont] == numeros[j])
+                {
+                    num += x[cont];
+                    cont++;
+                    j =-1;
+                }
+            }
+            int res = Convert.ToInt32(num);
+
+            return res;
         }
     }
 }

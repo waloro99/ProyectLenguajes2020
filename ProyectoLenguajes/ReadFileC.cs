@@ -235,7 +235,114 @@ namespace ProyectoLenguajes
             return "GG";//file correct
         }
 
-        //method to know read line for line the section sets
+        //method to know read line for line the section action
+        public string ReadAction(List<string> Action, List<Token> tokens, string ER)
+        {
+            foreach (var item in Action)
+            {
+                char[] a = item.ToArray();
+                char temp=' ';
+                int space1 = 0; // 0=false, 1=true,2=ignorar
+                int space2 = 0; // 0=false, 1=true,2=ignorar
+                int comilla1 = 0; // 0=false, 1=true,2=ignorar
+                int comilla2 = 0; // 0=false, 1=true,2=ignorar
+
+
+                for (int i = 0; i < a.Length; i++)
+                {
+                    if (i != (a.Length - 1))
+                    {
+                        temp = a[i + 1];
+                    }
+                    if (a[i] == ' ' && space1 == 0)
+                        space1 = 1;
+                    if (a[i] == ' ' && space1 > 1)
+                        space2 = 1;
+                    if (a[i].ToString() == "'" && comilla1 == 0)
+                        comilla1 = 1;
+                    if (a[i].ToString() == "'" && comilla1 > 1)
+                        comilla2 = 1;
+                    if (a[i] != '\t')
+                    {
+                        if (space1 == 0)
+                        {
+                            if (!Is_Token(a[i].ToString(), tokens, "c") && Is_Token(temp.ToString(), tokens, "c"))
+                            {
+                                return i + item;
+                            }
+                            else if (!Is_Token(a[i].ToString(), tokens, "c") && Is_Token(temp.ToString(), tokens, "f"))
+                            {
+                                return i + item;
+                            }
+                        }
+
+                        if (space1 == 1)
+                        {
+                            if (!Is_Token(a[i].ToString(), tokens, "f") && Is_Token(temp.ToString(), tokens, "g"))
+                            {
+                                return i + item;
+                            }
+                            space1++;
+                        }
+                        if (a[i] == '=' && space1 > 1)
+                        {
+                            if (!Is_Token(a[i].ToString(), tokens, "g") && Is_Token(temp.ToString(), tokens, "f"))
+                            {
+                                return i + item;
+                            }
+                        }
+                        if (space2 == 1)
+                        {
+                            if (!Is_Token(a[i].ToString(), tokens, "f") && Is_Token(temp.ToString(), tokens, "h"))
+                            {
+                                return i + item;
+                            }
+                            space2++;
+                        }
+
+                        if (space2 > 1)
+                        {
+                            if (comilla1 == 1)
+                            {
+                                if (!Is_Token(a[i].ToString(), tokens, "h") && Is_Token(temp.ToString(), tokens, "a"))
+                                {
+                                    return i + item;
+                                }
+                                comilla1++;
+                            }
+
+                        }
+
+                        if (comilla1 > 1)
+                        {
+                            if (comilla1 > 2 && comilla2 != 1)
+                            {
+                                if (!Is_Token(a[i].ToString(), tokens, "a") && Is_Token(temp.ToString(), tokens, "a"))
+                                {
+                                    return i + item;
+                                }
+                                else if (!Is_Token(a[i].ToString(), tokens, "a") && Is_Token(temp.ToString(), tokens, "h"))
+                                {
+                                    return i + item;
+                                }
+                            }
+                            if (comilla2 == 1)
+                            {
+                                if (!Is_Token(a[i].ToString(), tokens, "h") && Is_Token(temp.ToString(), tokens, "f"))
+                                {
+                                    return i + item;
+                                }
+                            }
+                            comilla1++;
+                        }
+                    }
+        
+                }
+            }
+            return "GG";//file correct
+        }
+
+        //method to know read line for line the section error
         public string ReadError(List<string> Error, List<Token> tokens, string ER)
         {
             //recorre lista
@@ -280,7 +387,8 @@ namespace ProyectoLenguajes
                                 return i + item;
                             break;
                         default:
-                            if (Is_Token(e[i].ToString(),tokens,"c"))
+                            if (!Is_Token(e[i].ToString(),tokens,"c"))
+                                if(e[i] != ' ')
                                 return i + item;
                             break;
                     }
@@ -290,6 +398,8 @@ namespace ProyectoLenguajes
 
             return "GG";//file correct
         }
+
+
 
 
         //method for comparation with values the token
@@ -304,7 +414,7 @@ namespace ProyectoLenguajes
                         if (c1 == x.ToString())
                         {
                             return true;
-                        }
+                        }                       
                     }
                     return false;
                 }
