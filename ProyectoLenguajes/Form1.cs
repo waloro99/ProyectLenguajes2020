@@ -149,6 +149,30 @@ namespace ProyectoLenguajes
                 MessageBox.Show(T_Error.cadena);
 
 
+
+
+
+
+                //----------------------------- READ ERROR -----------------------------------------------
+
+                //send all tokens 
+                Token t = new Token();
+                List<Token> L_t = new List<Token>();
+                L_t = t.Insert_Tokens();
+
+
+                //filter error
+                if (rf.ReadError(L_Error, L_t, ER_error) != "GG")
+                {
+                    string er = rf.ReadError(L_Error, L_t, ER_error);
+                    char[] x = er.ToArray();
+                    int line = Error_Line(x,res);
+                    MessageBox.Show("Error en la linea: " + line + " Columna: " + x[0]);
+                }
+
+        
+    
+
                 //Probar arbol
                 //ETree nuevo = new ETree();
 
@@ -228,6 +252,27 @@ namespace ProyectoLenguajes
             return res;
         }//tested
 
+        private int Error_Line(char[] err , string[] res)
+        {
+            string cadena = "";
 
+            for (int i = 0; i < err.Length; i++)
+            {
+                if (i!=0)
+                {
+                    cadena += err[i];
+                }
+            }
+
+            for (int i = 0; i < res.Length; i++)
+            {
+                if (res[i].Contains(cadena))
+                {
+                    return i;
+                }
+            }
+            return 0;
+
+        }
     }
 }

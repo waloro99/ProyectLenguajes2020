@@ -214,10 +214,23 @@ namespace ProyectoLenguajes
         public string ReadSets(List<string> Set, List<Token> tokens, string ER,string ER2)
         {
             //recorre lista
-            foreach (var item in Set)
-            {
+            //foreach (var item in Set)
+            //{
+            //    char[] c = item.ToArray();
+            //    char[] ER_v = Only_Token(ER).ToArray();
+            //    string ER2_v = Only_Token(ER2);
+            //    foreach (var y in ER_v)
+            //    {
+            //        foreach (var x in c)
+            //        {
+            //            if (x == )
+            //            {
+
+            //            }
+            //        }
+            //    }
                 
-            }
+            //}
 
             return "GG";//file correct
         }
@@ -228,17 +241,51 @@ namespace ProyectoLenguajes
             //recorre lista
             foreach (var item in Error)
             {
-                if (item.Contains("ERROR"))
-                {
-                    if (item.Contains("="))
-                    {
+                char[] e = item.ToArray();
 
+                for (int i = 0; i < e.Length; i++)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            if (e[i] != 'E')
+                                return i + item;
+                            break;
+                        case 1:
+                            if (e[i] != 'R')
+                                return i + item;
+                            break;
+                        case 2:
+                            if (e[i] != 'R')
+                                return i + item;
+                            break;
+                        case 3:
+                            if (e[i] != 'O')
+                                return i + item;
+                            break;
+                        case 4:
+                            if (e[i] != 'R')
+                                return i + item;
+                            break;
+                        case 5:
+                            if (e[i] != ' ')
+                                return i + item;
+                            break;
+                        case 6:
+                            if (e[i] != '=')
+                                return i + item;
+                            break;
+                        case 7:
+                            if (e[i] != ' ')
+                                return i + item;
+                            break;
+                        default:
+                            if (Is_Token(e[i].ToString(),tokens,"c"))
+                                return i + item;
+                            break;
                     }
                 }
-                else
-                {
-                    return item + " No contiene la palabra clave 'ERROR' ";
-                }
+
             }
 
             return "GG";//file correct
@@ -246,14 +293,42 @@ namespace ProyectoLenguajes
 
 
         //method for comparation with values the token
-        public bool Is_Token(string c1, Token c2)
+        public bool Is_Token(string c1, List<Token> c2,string res)
         {
-            foreach (var item in c2.Values)
+            foreach (var item in c2)
             {
-                if (c1 == item.ToString())
-                    return true;
+                if (res == item.Name)
+                {
+                    foreach (var x in item.Values)
+                    {
+                        if (c1 == x.ToString())
+                        {
+                            return true;
+                        }
+                    }
+                    return false;
+                }
             }
             return false;
         }
+
+        public string Only_Token(string ER)
+        {
+            char[] res = ER.ToArray();
+            string ans = "";
+            for (int i = 0; i < res.Length; i++)
+            {
+                if (res[i] == '+' || res[i] == '|' || res[i] == '*' || res[i] == '?' || res[i] == ' ')
+                {
+                }
+                else
+                {
+                    ans += ans + res[i];
+                }
+            }
+            return ans;
+        }
+
+
     }
 }
