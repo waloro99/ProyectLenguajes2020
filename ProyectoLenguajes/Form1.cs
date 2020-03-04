@@ -148,11 +148,6 @@ namespace ProyectoLenguajes
                 //MessageBox.Show(T_Actions.cadena);
                 //MessageBox.Show(T_Error.cadena);
 
-
-
-
-
-
                 //----------------------------- READ SECTIONS -----------------------------------------------
 
                 //send all tokens 
@@ -160,8 +155,18 @@ namespace ProyectoLenguajes
                 List<Token> L_t = new List<Token>();
                 L_t = t.Insert_Tokens();
 
+                //filter sets
+                if (rf.ReadSets(L_Sets, L_t, ER_sets1,ER_sets2) != "GG")
+                {
+                    string er = rf.ReadSets(L_Sets, L_t, ER_sets1, ER_sets2);
+                    char[] x = er.ToArray();
+                    int columna = Error_Columna(x);
+                    int line = Error_Line(x, res);
+                    MessageBox.Show(er);
+                    MessageBox.Show("Error en la linea: " + line + " Columna: " + columna);
+                }
                 //filter tokens
-                if (rf.ReadTokens(L_Tokens, L_t, ER_tokens) != "GG")
+                else if (rf.ReadTokens(L_Tokens, L_t, ER_tokens) != "GG")
                 {
                     string er = rf.ReadTokens(L_Tokens, L_t, ER_tokens);
                     char[] x = er.ToArray();

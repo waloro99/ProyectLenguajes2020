@@ -206,6 +206,18 @@ namespace ProyectoLenguajes.Class
             //insert token in list
             tokens.Add(ñ);
 
+            //t15
+            //create token
+            Token p = new Token();
+            //name token
+            p.Name = "p";
+            //values token = TOKEN --> reserved word
+            //string P = "ERO";
+            char[] Comilla = new char[]{'"'};
+            p.Values = Comilla;
+            //insert token in list
+            tokens.Add(p);
+
             //t# case special , end the ER
             //create token
             Token t_special = new Token();
