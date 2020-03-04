@@ -92,7 +92,7 @@ namespace ProyectoLenguajes.Class
             //name token
             f.Name = "f";
             //values token = TOKEN --> reserved word
-            string F = " ";
+            string F = " \t";
             char[] Espacio = F.ToArray();
             f.Values = Espacio;
             //insert token in list

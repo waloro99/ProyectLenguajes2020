@@ -160,14 +160,26 @@ namespace ProyectoLenguajes
                 List<Token> L_t = new List<Token>();
                 L_t = t.Insert_Tokens();
 
-
+                //filter tokens
+                if (rf.ReadTokens(L_Tokens, L_t, ER_tokens) != "GG")
+                {
+                    string er = rf.ReadTokens(L_Tokens, L_t, ER_tokens);
+                    char[] x = er.ToArray();
+                    int columna = Error_Columna(x);
+                    int line = Error_Line(x, res);
+                    MessageBox.Show(er);
+                    MessageBox.Show("Error en la linea: " + line + " Columna: " + columna);
+                }
                 //filter action
-                if(rf.ReadAction(L_Actions,L_t,ER_actions) != "GG")
+                else if(rf.ReadAction(L_Actions,L_t,ER_actions) != "GG")
                 {
                     string er = rf.ReadAction(L_Actions, L_t, ER_actions);
                     char[] x = er.ToArray();
                     int columna = Error_Columna(x);
-                    int line = Error_Line(x, res);
+                    int line = Error_Line_A(x, res);
+                    if(line == 0)
+                        line = Error_Line(x, res);
+                    MessageBox.Show(er);
                     MessageBox.Show("Error en la linea: " + line + " Columna: " + columna);
                 }
                 //filter error
@@ -177,6 +189,7 @@ namespace ProyectoLenguajes
                     char[] x = er.ToArray();
                     int columna = Error_Columna(x);
                     int line = Error_Line(x, res);
+                    MessageBox.Show(er);
                     MessageBox.Show("Error en la linea: " + line + " Columna: " + columna);
                 }
                 else
@@ -266,6 +279,7 @@ namespace ProyectoLenguajes
             return res;
         }//tested
 
+        //method for search row error
         private int Error_Line(char[] err, string[] res)
         {
             string cadena = "";
@@ -306,6 +320,40 @@ namespace ProyectoLenguajes
 
         }
 
+        //method for search row error
+        private int Error_Line_A(char[] err, string[] res)
+        {
+            string cadena = "";
+            char[] numeros = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            bool v = false;
+            for (int i = 0; i < err.Length; i++)
+            {
+                if (i != 0)
+                {
+                    if (err[i] == '\t')
+                    {
+                        v = true;
+                    }
+                    if(v == true)
+                    {
+                        cadena += err[i];
+                    }
+                }
+            }
+
+            for (int i = 0; i < res.Length; i++)
+            {
+                if (res[i].Contains(cadena))
+                {
+                    return i;
+                }
+            }
+            return 0;
+
+        }
+
+
+        //method for search column error
         private int Error_Columna(char[] x)
         {
             string num = "";

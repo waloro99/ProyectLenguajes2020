@@ -235,6 +235,207 @@ namespace ProyectoLenguajes
             return "GG";//file correct
         }
 
+        //method to know read line for line the section error
+        public string ReadTokens(List<string> Token, List<Token> tokens, string ER)
+        {
+            //recorre lista
+            foreach (var item in Token)
+            {
+                char[] t = item.ToArray();
+                char[] t2 ;
+                char temp = ' ';
+                int cont = 0;
+                if (t[0] != 'T')
+                {                   
+                    for (int i = 0; i < t.Length; i++)
+                    {
+                        if (t[i] == 'T')
+                        {
+                            while (i < t.Length)
+                            {
+                                cont++;
+                                i++;
+                            }
+                        }
+                    }
+                    t2 = new char[cont];
+                    int x = 0;
+                    for (int i = 0; i < t.Length; i++)
+                    {
+                        if (t[i] == 'T')
+                        {
+                            while (i < t.Length)
+                            {
+                                t2[x] = t[i];
+                                i++;
+                                x++;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    t2 = t;
+                }
+
+                bool space1 = false, space2 = false, space3 = false;
+                for (int i = 0; i < t2.Length; i++)
+                {
+                    switch (i)
+                    {
+                        case 0:
+                            if (t2[i] != 'T')
+                                return i + item;
+                            break;
+                        case 1:
+                            if (t2[i] != 'O')
+                                return i + item;
+                            break;
+                        case 2:
+                            if (t2[i] != 'K')
+                                return i + item;
+                            break;
+                        case 3:
+                            if (t2[i] != 'E')
+                                return i + item;
+                            break;
+                        case 4:
+                            if (t2[i] != 'N')
+                                return i + item;
+                            break;
+                        case 5:
+                            if (t2[i] != ' ')
+                                return i + item;
+                            break;
+                        default:
+                            //BEFORE space
+                            if(i != t2.Length-1 )
+                                 temp = t2[i + 1];
+                            if (space1 == false)
+                            {
+                                if (!Is_Token(t2[i].ToString(), tokens, "f") && Is_Token(temp.ToString(), tokens, "c"))
+                                {
+                                    return i + item;
+                                }
+                                else if (Is_Token(t2[i].ToString(), tokens, "f") && Is_Token(temp.ToString(), tokens, "c"))
+                                {
+                                    space1 = true;
+                                }
+                                else if (Is_Token(t2[i].ToString(), tokens, "c") && Is_Token(temp.ToString(), tokens, "g"))
+                                {
+                                    space1 = true;
+                                    space2 = true;
+                                }
+                            }
+                            else if (space1 == true && space2 == false)
+                            {
+                                if (!Is_Token(t2[i].ToString(), tokens, "c") && Is_Token(temp.ToString(), tokens, "f"))
+                                {
+                                    if(!Is_Token(temp.ToString(), tokens, "g"))
+                                        if(!Is_Token(temp.ToString(), tokens, "c"))
+                                            return i + item;
+                                }
+                                else if (Is_Token(t2[i].ToString(), tokens, "c") && Is_Token(temp.ToString(), tokens, "f"))//space
+                                {
+                                    space2 = true;
+                                }
+                                else if (Is_Token(t2[i].ToString(), tokens, "c") && Is_Token(temp.ToString(), tokens, "g")) //=
+                                {
+                                    space2 = true;
+                                }
+                            }
+                            else if (space2 == true && space3 == false)
+                            {
+                                if ((!Is_Token(t2[i].ToString(), tokens, "g") && Is_Token(t[i].ToString(), tokens, "f")) && Is_Token(temp.ToString(), tokens, "f"))
+                                {
+                                    if(!Is_Token(t2[i].ToString(), tokens, "f"))
+                                        return i + item;
+                                }
+                                else if (Is_Token(t2[i].ToString(), tokens, "g") && Is_Token(temp.ToString(), tokens, "f")) //=
+                                {
+                                    space3 = true;
+                                }
+                            }
+                            else if (space3 == true)
+                            {
+                                if (Is_Token(t2[i].ToString(), tokens, "h"))
+                                {
+                                    if (!Is_Token(t2[i+1].ToString(), tokens, "a"))
+                                    {
+                                        if (!Is_Token(t2[i + 1].ToString(), tokens, "i"))
+                                        {
+                                            i++;
+                                            return i + item;
+                                        }                                      
+                                    }
+                                    if ((i+2 < t2.Length))
+                                    {
+                                        if(!Is_Token(t2[i + 2].ToString(), tokens, "h"))
+                                        {
+                                            return i + item;
+                                        }
+                                    }
+                                    else if(i == t2.Length-2)
+                                    {
+                                        return i + item;
+                                    }
+                                    i = i + 2;
+                                }
+                                else if (Is_Token(t2[i].ToString(), tokens, "l"))
+                                {
+                                    bool bandera1 = false;
+                                    while (bandera1 == false)
+                                    {
+                                        if (i == t2.Length)
+                                        {
+                                            return i + item;
+                                        }
+                                        else if (Is_Token(t2[i].ToString(), tokens, "m"))
+                                        {
+                                            bandera1 = true;
+                                        }                                       
+                                        else if (!Is_Token(t2[i].ToString(), tokens, "f"))
+                                        {
+                                            if (!Is_Token(t2[i].ToString(), tokens, "a"))
+                                            {
+                                                if (!Is_Token(t2[i].ToString(), tokens, "n"))
+                                                {
+                                                    return i + item;
+                                                }
+                                            }
+                                        }
+                                        i++;
+                                    }
+                                }
+                                else
+                                {
+                                    if (!Is_Token(t2[i].ToString(), tokens, "f"))
+                                    {
+                                        if (!Is_Token(t2[i].ToString(), tokens, "a"))
+                                        {
+                                            if (!Is_Token(t2[i].ToString(), tokens, "n"))
+                                            {
+                                                if (t2[i] != '{')
+                                                {
+                                                    if (t2[i] != '}')
+                                                    {
+                                                        return i + item;
+                                                    }                                                   
+                                                }                                               
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+
+                            break;
+                    }
+                }
+            }
+            return "GG";//file correct
+        }
+
+
         //method to know read line for line the section action
         public string ReadAction(List<string> Action, List<Token> tokens, string ER)
         {
@@ -405,6 +606,7 @@ namespace ProyectoLenguajes
         //method for comparation with values the token
         public bool Is_Token(string c1, List<Token> c2,string res)
         {
+            //res = name the token
             foreach (var item in c2)
             {
                 if (res == item.Name)
