@@ -265,7 +265,13 @@ namespace ProyectoLenguajes
             if (flag_SETS  == "GG")
             {
                 ER_analysis = FER.String_Completed(ER_analysis); //completed string with symbol '.'
-                textBox2.Text = ER_analysis;
+                textBox2.Text = ER_analysis; //show user
+
+                //create tree
+                ETree T_Tokens = new ETree();
+                Stack<Nodo> Tree_Tokens = new Stack<Nodo>(); //stack the final tree
+                Tree_Tokens = T_Tokens.Insert(ER_analysis); //get tree
+
                 MessageBox.Show(ER_analysis);
             }
             else

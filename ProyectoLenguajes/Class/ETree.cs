@@ -12,7 +12,7 @@ namespace ProyectoLenguajes.Class
         public Stack<string> T = new Stack<string>(); //Stack for st
         public Stack<Nodo> S = new Stack<Nodo>(); //stack for tree
         public char[] unario = { '*', '+', '?' }; //arrray symbols used in ER
-        public char[] op = { '*', '+', '(', ')', '?', '|', ' ' }; //arrray symbols used in ER
+        public char[] op = { '*', '+', '(', ')', '?', '|', '.' }; //arrray symbols used in ER
         public string cadena = ""; //Save InOrder 
         //Space symbol equals concatenation
 
