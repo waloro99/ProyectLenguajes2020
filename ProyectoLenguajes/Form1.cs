@@ -255,16 +255,17 @@ namespace ProyectoLenguajes
             }
 
             //Create ER for syntactic analysis
-
             //instance class for functions the ER
             ER FER = new ER();
             string ER_analysis = ""; //Save here ER for syntactic analysis
             ER_analysis = FER.CreateER(L_Tokens); //SAVE ER version 1                                                
-                                                  //falta colocar los puntos para concatenar
+
           
             string flag_SETS = FER.Is_Correct_SETS(ER_analysis, N_Sets);
             if (flag_SETS  == "GG")
             {
+                ER_analysis = FER.String_Completed(ER_analysis); //completed string with symbol '.'
+                textBox2.Text = ER_analysis;
                 MessageBox.Show(ER_analysis);
             }
             else

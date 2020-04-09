@@ -80,9 +80,12 @@
             // 
             // textBox2
             // 
+            this.textBox2.BackColor = System.Drawing.Color.PowderBlue;
+            this.textBox2.Font = new System.Drawing.Font("Comic Sans MS", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBox2.ForeColor = System.Drawing.Color.Navy;
             this.textBox2.Location = new System.Drawing.Point(17, 200);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(703, 20);
+            this.textBox2.Size = new System.Drawing.Size(703, 26);
             this.textBox2.TabIndex = 3;
             // 
             // dataGridView1

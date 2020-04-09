@@ -26,6 +26,7 @@ namespace ProyectoLenguajes.Class
             return res;
         }
 
+        //The string completed is correct your sets
         public string Is_Correct_SETS(string c, List<string> sets)
         {
             char[] aux = c.ToArray();
@@ -61,6 +62,56 @@ namespace ProyectoLenguajes.Class
                 return res;
         }
 
+        //Method last for put the symbol concatonation in string
+        public string String_Completed(string c)
+        {
+            string res = "";
+            char[] aux = c.ToArray();
+            char comilla = Convert.ToChar("'");
+            bool flag_s1 = false, flag_s2 = false;//flags for case space
+
+            //scroll string
+            for (int i = 0; i < c.Length; i++)
+            {
+                flag_s1 = false;  flag_s2 = false;//reset
+                //Case 1 that string has unnecesary spaces
+                if (aux[i] == ' ')
+                {
+                    //Before space
+                    if (Is_CapitalLetter(aux[i-1]))
+                        flag_s1 = true;
+                    else if (aux[i-1] == comilla)
+                        flag_s1 = true;
+                    //After space
+                    if (Is_CapitalLetter(aux[i + 1]))
+                        flag_s2 = true;
+                    else if (aux[i + 1] == comilla)
+                        flag_s2 = true;
+                    else if (aux[i + 1] == '(')
+                        flag_s2 = true;
+                    if (flag_s1 == true && flag_s2 == true)
+                        res = res + "."; //concatenation
+                }
+                //concatenate two characters
+                else if (aux[i] == comilla)
+                {
+                    res = res + aux[i]; //insert symbol comilla
+                    i++;
+                    res = res + aux[i]; //insert symbol any charecter
+                    i++;
+                    res = res + aux[i]; //insert symbol comilla 
+                    if (aux[i+1] == comilla)
+                        res = res +  "."; //concatenation
+                }
+                //normal
+                else
+                    res = res + aux[i];
+            }
+
+            return res;
+        }
+
+
         //method for comparation SETS with words
         private string Is_SET(string c, int inicial, int final, List <string> name)
         {
@@ -80,7 +131,6 @@ namespace ProyectoLenguajes.Class
             }
             return res;
         }
-
 
         //method for get if is capital letter
         private bool Is_CapitalLetter(char x)
