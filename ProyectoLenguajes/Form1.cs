@@ -141,11 +141,11 @@ namespace ProyectoLenguajes
                                                                //------------------- SECOND FILTER
 
                     //Create string ER
-                    string ER_sets1 = "(a+ f+ g (f+ h (a|b|c|i) h (j|k)?)+) #"; //LETRA   = 'A'..'Z'+'a'..'z'+'_'
-                    string ER_sets2 = "(a+ f+ g (f+ d+ l c+ m j?)+) #"; //CHARSET = CHR(32)..CHR(254)
-                    string ER_tokens = "(e+ f+ c+ f* g f* ((h (a|i) h)*|(a|f|n)*|(a|b|f|i)*)+) #"; //'"' CHARSET '"'|''' CHARSET ''' // LETRA ( LETRA | DIGITO )*   { RESERVADAS() } 
-                    string ER_actions = "(c+ f g f h a+ h) #"; //18 = 'PROGRAM'
-                    string ER_error = "(ñ+ f g f c+) #"; //ERROR = 54
+                    string ER_sets1 = "(a+.f+.g.(f+.h.(a|b|c|i).h.(j|k)?)+).#"; //LETRA   = 'A'..'Z'+'a'..'z'+'_'
+                    string ER_sets2 = "(a+.f+.g.(f+.d+.l.c+.m.j?)+).#"; //CHARSET = CHR(32)..CHR(254)
+                    string ER_tokens = "(e+.f+.c+.f*.g.f*.((h.(a|i).h)*|(a|f|n)*|(a|b|f|i)*)+).#"; //'"' CHARSET '"'|''' CHARSET ''' // LETRA ( LETRA | DIGITO )*   { RESERVADAS() } 
+                    string ER_actions = "(c+.f.g.f.h.a+.h).#"; //18 = 'PROGRAM'
+                    string ER_error = "(ñ+.f.g.f.c+).#"; //ERROR = 54
 
                     //Create tree for each ER...
                     ETree T_Sets = new ETree();
@@ -258,9 +258,7 @@ namespace ProyectoLenguajes
             //instance class for functions the ER
             ER FER = new ER();
             string ER_analysis = ""; //Save here ER for syntactic analysis
-            ER_analysis = FER.CreateER(L_Tokens); //SAVE ER version 1                                                
-
-          
+            ER_analysis = FER.CreateER(L_Tokens); //SAVE ER version 1                                                      
             string flag_SETS = FER.Is_Correct_SETS(ER_analysis, N_Sets);
             if (flag_SETS  == "GG")
             {
@@ -271,7 +269,8 @@ namespace ProyectoLenguajes
                 ETree T_Tokens = new ETree();
                 Stack<Nodo> Tree_Tokens = new Stack<Nodo>(); //stack the final tree
                 Tree_Tokens = T_Tokens.Insert(ER_analysis); //get tree
-
+                T_Tokens.InOrder(Tree_Tokens.Pop()); //recorrido
+                MessageBox.Show(T_Tokens.cadena);
                 MessageBox.Show(ER_analysis);
             }
             else

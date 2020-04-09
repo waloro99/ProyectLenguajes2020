@@ -14,7 +14,10 @@ namespace ProyectoLenguajes.Class
         public char[] unario = { '*', '+', '?' }; //arrray symbols used in ER
         public char[] op = { '*', '+', '(', ')', '?', '|', '.' }; //arrray symbols used in ER
         public string cadena = ""; //Save InOrder 
-        //Space symbol equals concatenation
+        //Space symbol equals concatenation --> change in second phase --> new concatenation = '.'
+
+        //globaL VARIABLE
+        public int cts = 0; //count tokens position
 
         //Method builder
         public ETree()
@@ -26,7 +29,7 @@ namespace ProyectoLenguajes.Class
         public Stack<Nodo> Insert(string er)
         {
             char[] tokens = er.ToArray(); //read character for character 
-            int cts = 0; //count tokens position
+            
             //Step 1.	Mientras existan tokens en la expresión regular ---------------------------------------
             while (cts < tokens.Length)
             {
@@ -37,7 +40,11 @@ namespace ProyectoLenguajes.Class
                 {
                     //a. Convertir st en árbol
                     Nodo nuevo = new Nodo();
-                    nuevo.valor = token.ToString();
+
+                    //add metho for new types the st
+                    string value_ST = GetValueNodo(tokens);
+
+                    nuevo.valor = value_ST;//token.ToString();
                     nuevo.hd = null;
                     nuevo.hi = null;
 
@@ -211,6 +218,45 @@ namespace ProyectoLenguajes.Class
 
         }//tested
 
+
+        //method for get value the nodo in string
+        private string GetValueNodo(char[] t)
+        {
+            string res = "";
+            string A = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+            string a = "abcdefghijklmnñopqrstuvwxyz";
+            char comilla = Convert.ToChar("'");
+                //case letter 
+                if (a.Contains(t[cts]))
+                {
+                    res = res + t[cts];
+                }
+                //case capital letter
+                else if (A.Contains(t[cts]))
+                {
+                    while (A.Contains(t[cts]))
+                    {
+                        res = res + t[cts];
+                        cts++; 
+                    }
+                    cts--; //because in method insert exists cts++ else if error
+                }
+                //case comilla
+                else if (t[cts] == comilla)
+                {
+                    res = res + t[cts]; //first comilla
+                    cts++;
+                    res = res + t[cts]; //any symbol
+                    cts++;
+                    res = res + t[cts]; //second comilla
+                }
+                else if (t[cts] == '#')
+                {
+                    res = res + "#";
+                }
+            return res;
+        }
+
         //method to know if the character of the ER is an op
         private bool Is_op(char t)
         {
@@ -259,13 +305,22 @@ namespace ProyectoLenguajes.Class
             List<Token> tokens = new List<Token>();
             //Fill list
             tokens = nuevo.Insert_Tokens();
-
+            
             string t_char = t.ToString(); //compatible
             foreach (var item in tokens)
             {
                 if (t_char == item.Name) //yes return true
                     return true;
             }
+
+            //Function add for new string that comilla and capital letter
+            char comilla = Convert.ToChar("'");
+            string CapitalLetter = "ABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+            if (t == comilla)
+                return true;
+            else if (CapitalLetter.Contains(t))
+                return true;
+
             return false; //no return false
         }//tested
 
@@ -287,6 +342,9 @@ namespace ProyectoLenguajes.Class
         public Nodo hi; //song left
         public Nodo hd; //song right
         public string valor; //value the nodo
+        public List<int> first = new List<int>();
+        public List<int> last = new List<int>();
+        public List<int> follow = new List<int>();
 
         //method builder
         public Nodo()
@@ -294,6 +352,9 @@ namespace ProyectoLenguajes.Class
             hd = null;
             hi = null;
             valor = "";
+            first = null;
+            last = null;
+            follow = null;
         }
     }
 }
