@@ -72,14 +72,14 @@ namespace ProyectoLenguajes
             N_Sets.Clear();
 
 
-            p1 =  Semantic_Analysis();    //Semantic analysis  ---->   phase 1
+            p1 = Semantic_Analysis();    //Semantic analysis  ---->   phase 1
 
             if (p1 == 1)
             {
                 Syntactic_Analysis();   //Syntactic analysis  ---->   phase 2
             }
 
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -190,7 +190,7 @@ namespace ProyectoLenguajes
                     L_t = t.Insert_Tokens();
 
                     //filter sets
-                    if (rf.ReadSets(L_Sets, L_t, ER_sets1,ER_sets2) != "GG")
+                    if (rf.ReadSets(L_Sets, L_t, ER_sets1, ER_sets2) != "GG")
                     {
                         string er = rf.ReadSets(L_Sets, L_t, ER_sets1, ER_sets2);
                         char[] x = er.ToArray();
@@ -212,13 +212,13 @@ namespace ProyectoLenguajes
                         return 0;
                     }
                     //filter action
-                    else if(rf.ReadAction(L_Actions,L_t,ER_actions) != "GG")
+                    else if (rf.ReadAction(L_Actions, L_t, ER_actions) != "GG")
                     {
                         string er = rf.ReadAction(L_Actions, L_t, ER_actions);
                         char[] x = er.ToArray();
                         int columna = Error_Columna(x);
                         int line = Error_Line_A(x, res);
-                        if(line == 0)
+                        if (line == 0)
                             line = Error_Line(x, res);
                         MessageBox.Show(er);
                         MessageBox.Show("Error en la linea: " + line + " Columna: " + columna);
@@ -260,7 +260,7 @@ namespace ProyectoLenguajes
             string ER_analysis = ""; //Save here ER for syntactic analysis
             ER_analysis = FER.CreateER(L_Tokens); //SAVE ER version 1                                                      
             string flag_SETS = FER.Is_Correct_SETS(ER_analysis, N_Sets);
-            if (flag_SETS  == "GG")
+            if (flag_SETS == "GG")
             {
                 ER_analysis = FER.String_Completed(ER_analysis); //completed string with symbol '.'
                 textBox2.Text = ER_analysis; //show user
@@ -269,9 +269,19 @@ namespace ProyectoLenguajes
                 ETree T_Tokens = new ETree();
                 Stack<Nodo> Tree_Tokens = new Stack<Nodo>(); //stack the final tree
                 Tree_Tokens = T_Tokens.Insert(ER_analysis); //get tree
-                T_Tokens.InOrder(Tree_Tokens.Pop()); //recorrido
+                T_Tokens.InOrder(Tree_Tokens.Pop());
                 MessageBox.Show(T_Tokens.cadena);
-                MessageBox.Show(ER_analysis);
+                // SECOND PHASE AFD the ETree
+                //insert values the first , last and follow for direct method AFD
+
+
+                //AFD afd = new AFD(); //instance class
+                //Nodo Node_Token = new Nodo();
+                //Node_Token = afd.Direct_Method(Tree_Tokens.Pop());
+                //Show_FirstLast(Node_Token); //show in data grid view data the first and last
+
+
+               // MessageBox.Show(ER_analysis); //final de como quedo la expresion regular
             }
             else
             {
@@ -402,7 +412,6 @@ namespace ProyectoLenguajes
             return res;
         }
 
-
         //method for split the list sets
         private string Name_SETS(string cadena)
         {
@@ -421,6 +430,37 @@ namespace ProyectoLenguajes
             }
             return res;
         }//tested
+
+        //method for show in datagridview the first and last
+        private void Show_FirstLast(Nodo n)
+        {
+            //scroll in PostOrder
+            if (n.hi != null)
+                Show_FirstLast(n.hi);
+            if (n.hd != null)
+                Show_FirstLast(n.hd);
+            string first = "";
+            string last = "";
+            string nullable = "";
+            foreach (var item in n.first)
+                first = first + item.ToString() +",";
+            foreach (var item in n.last)
+                last = last + item.ToString() + ",";
+            if (n.nullable == false)
+                nullable = "false";
+            else
+                nullable = "true";
+            first = first.TrimEnd(',');
+            last = last.TrimEnd(',');
+            dataGridView1.Rows.Add(n.valor,first,last,nullable);
+            string hi = "";
+            string hd = "";
+            if (n.hi != null)
+                hi = n.hi.valor;
+            if (n.hd != null)
+                hd = n.hd.valor;
+            MessageBox.Show("Padre: " + n.valor + "\n hi: " + hi + "\n hd: " + hd);
+        }
 
         private void label1_Click(object sender, EventArgs e)
         {

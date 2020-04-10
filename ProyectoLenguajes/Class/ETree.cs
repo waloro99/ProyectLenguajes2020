@@ -345,6 +345,7 @@ namespace ProyectoLenguajes.Class
         public List<int> first = new List<int>();
         public List<int> last = new List<int>();
         public List<int> follow = new List<int>();
+        public bool nullable;
 
         //method builder
         public Nodo()
@@ -352,9 +353,10 @@ namespace ProyectoLenguajes.Class
             hd = null;
             hi = null;
             valor = "";
-            first = null;
-            last = null;
-            follow = null;
+            //first = null;
+            //last = null;
+            //follow = null;
+            nullable = false;
         }
     }
 }

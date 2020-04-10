@@ -8,6 +8,9 @@ namespace ProyectoLenguajes.Class
 {
     public class ER
     {
+
+        //------------------------- PUBLIC FUNCTIONS -------------------------------------
+
         //Create ER for syntactic analysis but is first version, then more verifications
         public string CreateER(List<string> list)
         {
@@ -111,6 +114,7 @@ namespace ProyectoLenguajes.Class
             return res;
         }
 
+        //------------------------- PRIVATE FUNCTIONS -------------------------------------
 
         //method for comparation SETS with words
         private string Is_SET(string c, int inicial, int final, List <string> name)
