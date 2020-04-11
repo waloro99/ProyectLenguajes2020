@@ -28,7 +28,7 @@ namespace ProyectoLenguajes.Class
         //method for insert in the expression tree with Moises Algorithm
         public Stack<Nodo> Insert(string er)
         {
-            char[] tokens = er.ToArray(); //read character for character 
+             char[] tokens = er.ToArray(); //read character for character 
             
             //Step 1.	Mientras existan tokens en la expresión regular ---------------------------------------
             while (cts < tokens.Length)
@@ -148,6 +148,23 @@ namespace ProyectoLenguajes.Class
 
                         //v. Push de temp en la pila S 
                         S.Push(temp);
+
+                        //si existe un pipe despues en T lo debo de concatenar si existen 2 en S
+                        if (T.Peek() == "|" && S.Count > 1 && token == '|')
+                        {
+                            //i. Extraer de T a op, convertirlo en árbol y llamarlo temp
+                            Nodo temp1 = new Nodo();
+                            temp1.valor = T.Pop();
+
+                            //iii. Extraer último árbol de S y asignarlo al hijo derecho de temp
+                            temp1.hd = S.Pop();
+
+                            //iv. Extraer último árbol de S y asignarlo al hijo izquierdo de temp
+                            temp1.hi = S.Pop();
+
+                            //v. Push de temp en la pila S 
+                            S.Push(temp1);
+                        }
                     }
 
                     //c. Si op no es unario Hacer “push” en la pila T con token
@@ -293,6 +310,11 @@ namespace ProyectoLenguajes.Class
             {
                 return true;
             }
+            //case special becuase no function in un tree -->
+            else if (top == '.' && t == '|')
+            {
+                return true;
+            }
             return false;
         }//tested
 
@@ -333,6 +355,19 @@ namespace ProyectoLenguajes.Class
             if (n.hd != null)
                 InOrder(n.hd);
         }//tested
+
+        //method for walk the tree post order
+        public void PostOrder(Nodo n)
+        {
+            if (n.hi != null)
+                PostOrder(n.hi);
+            if (n.hd != null)
+                PostOrder(n.hd);
+            cadena = cadena + " " + n.valor;          
+        }//tested
+
+
+
 
     }
 

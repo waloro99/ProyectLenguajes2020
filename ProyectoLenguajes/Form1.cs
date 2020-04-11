@@ -168,7 +168,7 @@ namespace ProyectoLenguajes
                     Tree_Actions = T_Actions.Insert(ER_actions);
                     Tree_Error = T_Error.Insert(ER_error);
 
-                    //recorrido
+                    // recorrido
                     T_Sets.InOrder(Tree_Sets.Pop());
                     T_Sets2.InOrder(Tree_Sets2.Pop());
                     T_Tokens.InOrder(Tree_Tokens.Pop());
@@ -269,19 +269,19 @@ namespace ProyectoLenguajes
                 ETree T_Tokens = new ETree();
                 Stack<Nodo> Tree_Tokens = new Stack<Nodo>(); //stack the final tree
                 Tree_Tokens = T_Tokens.Insert(ER_analysis); //get tree
-                T_Tokens.InOrder(Tree_Tokens.Pop());
-                MessageBox.Show(T_Tokens.cadena);
+                //T_Tokens.PostOrder(Tree_Tokens.Pop());
+                //MessageBox.Show(T_Tokens.cadena);
                 // SECOND PHASE AFD the ETree
                 //insert values the first , last and follow for direct method AFD
 
 
-                //AFD afd = new AFD(); //instance class
-                //Nodo Node_Token = new Nodo();
-                //Node_Token = afd.Direct_Method(Tree_Tokens.Pop());
-                //Show_FirstLast(Node_Token); //show in data grid view data the first and last
+                AFD afd = new AFD(); //instance class
+                Nodo Node_Token = new Nodo();
+                Node_Token = afd.Direct_Method(Tree_Tokens.Pop());
+                Show_FirstLast(Node_Token); //show in data grid view data the first and last
 
 
-               // MessageBox.Show(ER_analysis); //final de como quedo la expresion regular
+                // MessageBox.Show(ER_analysis); //final de como quedo la expresion regular
             }
             else
             {
@@ -459,7 +459,7 @@ namespace ProyectoLenguajes
                 hi = n.hi.valor;
             if (n.hd != null)
                 hd = n.hd.valor;
-            MessageBox.Show("Padre: " + n.valor + "\n hi: " + hi + "\n hd: " + hd);
+          //  MessageBox.Show("Padre: " + n.valor + "\n hi: " + hi + "\n hd: " + hd);
         }
 
         private void label1_Click(object sender, EventArgs e)
