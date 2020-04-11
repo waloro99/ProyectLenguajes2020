@@ -269,19 +269,14 @@ namespace ProyectoLenguajes
                 ETree T_Tokens = new ETree();
                 Stack<Nodo> Tree_Tokens = new Stack<Nodo>(); //stack the final tree
                 Tree_Tokens = T_Tokens.Insert(ER_analysis); //get tree
-                //T_Tokens.PostOrder(Tree_Tokens.Pop());
-                //MessageBox.Show(T_Tokens.cadena);
                 // SECOND PHASE AFD the ETree
                 //insert values the first , last and follow for direct method AFD
-
-
                 AFD afd = new AFD(); //instance class
                 Nodo Node_Token = new Nodo();
                 Node_Token = afd.Direct_Method(Tree_Tokens.Pop());
                 Show_FirstLast(Node_Token); //show in data grid view data the first and last
+                Show_Follow(Node_Token); // show in data grid view data the follow
 
-
-                // MessageBox.Show(ER_analysis); //final de como quedo la expresion regular
             }
             else
             {
@@ -453,13 +448,24 @@ namespace ProyectoLenguajes
             first = first.TrimEnd(',');
             last = last.TrimEnd(',');
             dataGridView1.Rows.Add(n.valor,first,last,nullable);
-            string hi = "";
-            string hd = "";
+        }
+
+        //method for show in datagridview the follow
+        private void Show_Follow(Nodo n)
+        {
+            //scroll in PostOrder
             if (n.hi != null)
-                hi = n.hi.valor;
+                Show_Follow(n.hi);
             if (n.hd != null)
-                hd = n.hd.valor;
-          //  MessageBox.Show("Padre: " + n.valor + "\n hi: " + hi + "\n hd: " + hd);
+                Show_Follow(n.hd);
+            if (n.id != 0)
+            {
+                string follow = "";
+                foreach (var item in n.follow)
+                    follow = follow + item.ToString() + ",";
+                follow = follow.TrimEnd(',');
+                dataGridView3.Rows.Add(n.id, follow);
+            }        
         }
 
         private void label1_Click(object sender, EventArgs e)

@@ -381,7 +381,7 @@ namespace ProyectoLenguajes.Class
         public List<int> last = new List<int>();
         public List<int> follow = new List<int>();
         public bool nullable;
-
+        public int id; //add then because show the leaf node for tabla follow
         //method builder
         public Nodo()
         {
@@ -392,6 +392,7 @@ namespace ProyectoLenguajes.Class
             //last = null;
             //follow = null;
             nullable = false;
+            id = 0;
         }
     }
 }

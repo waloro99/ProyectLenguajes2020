@@ -21,6 +21,9 @@ namespace ProyectoLenguajes.Class
             //2. Se inserta los valores de first y last para los nodos que no son hoja
             Insert_First_Last(x);
 
+            //3. Se inserta los valores de Follow en los nodos con recorrido post orden
+            Insert_Follow(x);
+
             return x;
         }
 
@@ -40,7 +43,7 @@ namespace ProyectoLenguajes.Class
             }
             if (n.hd != null)
                 Insert_Leaf_Node(n.hd);
-        }
+        }//tested
 
         //method for insert values in first and last in node that not leaf node and NUllable
         private void Insert_First_Last(Nodo n)
@@ -123,6 +126,56 @@ namespace ProyectoLenguajes.Class
                     //nullable == FALSE for defect
                 }
             }
+        }//tested
+
+        //method for insert values in follow in node that not leaf node and add id for show in tabla
+        private void Insert_Follow(Nodo n)
+        {
+            //scroll in PostOrder
+            if (n.hi != null)
+                Insert_Follow(n.hi);
+            if (n.hd != null)
+                Insert_Follow(n.hd);
+            //1. Follow = L(c1) -> F(c2)
+            if (n.valor == ".")
+            {
+                foreach (var item in n.hi.last)
+                {
+                    foreach (var item2 in n.hd.first)
+                        InOrderFollow(item, item2, n);                
+                }
+            }
+            //2. Follow = L(c1) -> F(c1)
+            else if (n.valor == "*" || n.valor == "+")
+            {
+                foreach (var item in n.hi.last)
+                {
+                    foreach (var item2 in n.hi.first)
+                        InOrderFollow(item, item2, n);
+                }
+            }
+            //4.No tienen follow  -->> "|" && "?"
+            else if (n.valor != "|" && n.valor != "?")
+            {
+                //Se sabe que si llego aqui significa que es una hoja
+                foreach (var item in n.first)
+                    n.id = item;               
+            }       
+            
         }
+
+        //method for scroll in order for follows
+        private void InOrderFollow(int id, int valor, Nodo n)
+        {
+            //scroll in Orden
+            if (n.hi != null)
+                InOrderFollow(id, valor, n.hi);
+            if (n.id == id)
+                n.follow.Add(valor);
+            if (n.hd != null)
+                InOrderFollow(id,valor,n.hd);
+        }
+
+
     }
 }
