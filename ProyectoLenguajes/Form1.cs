@@ -274,8 +274,18 @@ namespace ProyectoLenguajes
                 AFD afd = new AFD(); //instance class
                 Nodo Node_Token = new Nodo();
                 Node_Token = afd.Direct_Method(Tree_Tokens.Pop());
+
+                //Third Phase Transitions the AFD the Etree
+                List<string> Columns_Transitions = new List<string>();
+                List<string> Values_Transitions = new List<string>();
+                List<Transitions> L_Transitions = new List<Transitions>(); //save data the transitions
+                Columns_Transitions = afd.Transitions_Insert(Columns_Transitions,Node_Token); //save name the columns
+                Values_Transitions = afd.Transitions_values(Values_Transitions,Node_Token,Columns_Transitions);
+
+                //Method for show in DataGridView
                 Show_FirstLast(Node_Token); //show in data grid view data the first and last
                 Show_Follow(Node_Token); // show in data grid view data the follow
+                Show_Transitions(Columns_Transitions); //shoq in data grid view data the transitions
 
             }
             else
@@ -466,6 +476,17 @@ namespace ProyectoLenguajes
                 follow = follow.TrimEnd(',');
                 dataGridView3.Rows.Add(n.id, follow);
             }        
+        }
+
+        //method for show in datagridview the transitions
+        private void Show_Transitions(List<string> columns_v)
+        {
+
+            foreach (var item in columns_v)
+            {
+                dataGridView2.Columns.Add(item,item);
+            }
+           
         }
 
         private void label1_Click(object sender, EventArgs e)

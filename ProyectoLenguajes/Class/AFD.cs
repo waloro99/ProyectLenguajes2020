@@ -22,9 +22,26 @@ namespace ProyectoLenguajes.Class
             Insert_First_Last(x);
 
             //3. Se inserta los valores de Follow en los nodos con recorrido post orden
-            Insert_Follow(x);
+            Insert_Follow(x);           
 
             return x;
+        }
+
+        //direct method for AFD in tree --> transitions
+        public List<string> Transitions_Insert(List<string> S, Nodo n)
+        {
+            //4. Se inserta la lista que guarda los valores de las transiciones
+            Insert_Values_Columns(S, n); //save each name the data -->  first column
+
+            return S;
+        }
+
+        //Last phase for completed table the AFD Transitions
+        public List<string> Transitions_values(List<string> t, Nodo n, List<string> v)
+        {
+            Insert_FirstStatus(t,n);
+            Insert_Transitions(t, n, v);
+            return t;
         }
 
         //------------------------------- PRIVATE FUNCTIONS ---------------------------------
@@ -162,7 +179,7 @@ namespace ProyectoLenguajes.Class
                     n.id = item;               
             }       
             
-        }
+        }//tested
 
         //method for scroll in order for follows
         private void InOrderFollow(int id, int valor, Nodo n)
@@ -174,6 +191,59 @@ namespace ProyectoLenguajes.Class
                 n.follow.Add(valor);
             if (n.hd != null)
                 InOrderFollow(id,valor,n.hd);
+        }//tested
+
+        //method for scroll nodo for each name unico
+        private void Insert_Values_Columns(List<string> t, Nodo n)
+        {
+            //scroll in PostOrder
+            if (n.hi != null)
+                Insert_Values_Columns(t, n.hi);
+            if (n.hd != null)
+                Insert_Values_Columns(t, n.hd);
+            //Only leaf node
+            if (n.hi == null && n.hd == null)
+            {
+                bool flag = false;//check diferent name the column
+                if (t.Count != 0)
+                {
+                    foreach (var item in t)
+                    {
+                        if (item == n.valor)
+                            flag = true;
+                    }
+                    if (flag == false && n.valor != "#")
+                        t.Add(n.valor);
+                }
+                else
+                {
+                    t.Add("Estado"); //first add
+                    t.Add(n.valor);
+                }
+            }
+        }//tested
+
+        //method for insert the first root , because is first status
+        private void Insert_FirstStatus(List<string> t, Nodo n)
+        {
+            string first = "";
+            foreach (var item in n.first)
+            {
+                first = first+item + ",";
+            }
+            first = first.TrimEnd(',');
+            t.Add(first + ";");
+        }
+
+        //method for AFD transitions
+        private void Insert_Transitions(List<string> t , Nodo n, List<string> v)
+        {
+            //scroll in PostOrder
+            if (n.hi != null)
+                Insert_Values_Columns(t, n.hi);
+            if (n.hd != null)
+                Insert_Values_Columns(t, n.hd);
+            
         }
 
 
