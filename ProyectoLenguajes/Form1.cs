@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProyectoLenguajes.Class;
+using System.IO;
 
 
 
@@ -278,8 +279,7 @@ namespace ProyectoLenguajes
                 //Third Phase Transitions the AFD the Etree
                 List<string> Columns_Transitions = new List<string>(); // Name the columns
                 List<string> Values_Transitions = new List<string>(); // Values the columns for each status
-                List<string> Status = new List<string>(); // Each status 
-                List<Transitions> L_Transitions = new List<Transitions>(); //save data the transitions
+                List<string> Status = new List<string>(); // Each status   
                 Columns_Transitions = afd.Transitions_Insert(Columns_Transitions,Node_Token); //save name the columns
                 Values_Transitions = afd.Transitions_values(Values_Transitions,Node_Token,Columns_Transitions, Status);
                 Status = afd.FixList(Status);//order number
@@ -288,6 +288,16 @@ namespace ProyectoLenguajes
                 Show_FirstLast(Node_Token); //show in data grid view data the first and last
                 Show_Follow(Node_Token); // show in data grid view data the follow
                 Show_Transitions(Columns_Transitions,Status, Values_Transitions); //shoq in data grid view data the transitions
+
+                //show tree in image
+                //string ruta = T_Tokens.graphic(Node_Token);
+
+                //System.Threading.Thread.Sleep(1000);
+
+                //FileStream file = new FileStream(ruta, FileMode.Open);
+                //Image img = Image.FromStream(file);
+                //pictureBox1.Image = img;
+                //file.Close();
 
             }
             else

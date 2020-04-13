@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Security.Permissions;
+using System.Security;
 
 namespace ProyectoLenguajes.Class
 {
@@ -366,8 +369,60 @@ namespace ProyectoLenguajes.Class
             cadena = cadena + " " + n.valor;          
         }//tested
 
+        //method for graphic tree
+        public string graphic(Nodo n)
+        {
+            string dot = "digraph G {\n\nnode [shape = record,height=.1];\nsplines=\"line\";\n\n";
+
+            graphic2(n, ref dot);
+
+            dot += "}";
+
+            StreamWriter sw = new StreamWriter(@"C:\\dot.txt",true);
+            try
+            {
+                sw.Write(dot);
+                sw.Close();
+            }
+            catch 
+            {
+
+            }
+          
+
+            string ruta = "C:\\dot.txt";
+            string ruta2 = "C:\\Arbol.png";
+
+            string cmd = "dot -Tpng " + ruta + " -o " + ruta2;
+
+            System.Diagnostics.ProcessStartInfo miProceso = new System.Diagnostics.ProcessStartInfo("cmd", "/c " + cmd);
+            System.Diagnostics.Process.Start(miProceso);
 
 
+            return ruta2;
+        }
+
+        //method complement graphic
+        private void graphic2(Nodo n, ref string cadena)
+        {
+            if (n != null)
+            {
+                cadena += "nodo" + n.valor + "[label = \" <f2>|<f1> " + n.valor + " |<f0> \"];\n";
+
+                graphic2(n.hi, ref cadena);
+                graphic2(n.hd, ref cadena);
+
+                if (n.hi != null)
+                {
+                    cadena += "\"nodo" + n.valor + "\":f2 -> \"nodo" + n.hi.valor + "\":f1;\n";
+                }
+
+                if (n.hd != null)
+                {
+                    cadena += "\"nodo" + n.valor + "\":f0 -> \"nodo" + n.hd.valor + "\":f1;\n";
+                }
+            }
+        }
 
     }
 

@@ -78,7 +78,6 @@
     <Compile Include="Class\ER.cs" />
     <Compile Include="Class\ETree.cs" />
     <Compile Include="Class\Token.cs" />
-    <Compile Include="Class\Transitions.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
