@@ -39,13 +39,13 @@
             this.Nullable = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.SimboloF = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Follow = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.SimboloF = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Follow = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
@@ -96,6 +96,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -134,6 +135,7 @@
             // 
             // dataGridView2
             // 
+            this.dataGridView2.AllowUserToAddRows = false;
             this.dataGridView2.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(453, 294);
@@ -143,6 +145,7 @@
             // 
             // dataGridView3
             // 
+            this.dataGridView3.AllowUserToAddRows = false;
             this.dataGridView3.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -152,6 +155,16 @@
             this.dataGridView3.Name = "dataGridView3";
             this.dataGridView3.Size = new System.Drawing.Size(221, 223);
             this.dataGridView3.TabIndex = 6;
+            // 
+            // SimboloF
+            // 
+            this.SimboloF.HeaderText = "Simbolo";
+            this.SimboloF.Name = "SimboloF";
+            // 
+            // Follow
+            // 
+            this.Follow.HeaderText = "Follow";
+            this.Follow.Name = "Follow";
             // 
             // label1
             // 
@@ -210,16 +223,6 @@
             this.label4.Size = new System.Drawing.Size(211, 27);
             this.label4.TabIndex = 11;
             this.label4.Text = "TABLA \"Transiciones\"";
-            // 
-            // SimboloF
-            // 
-            this.SimboloF.HeaderText = "Simbolo";
-            this.SimboloF.Name = "SimboloF";
-            // 
-            // Follow
-            // 
-            this.Follow.HeaderText = "Follow";
-            this.Follow.Name = "Follow";
             // 
             // Form1
             // 

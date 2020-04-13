@@ -10,6 +10,7 @@ namespace ProyectoLenguajes.Class
     {
         //Var global
         public int cont = 1;
+        public string res1 = ""; //get result the comparations
 
         //------------------------------- PUBLIC FUNCTIONS ----------------------------------
         //direct method for AFD in tree
@@ -37,13 +38,28 @@ namespace ProyectoLenguajes.Class
         }
 
         //Last phase for completed table the AFD Transitions
-        public List<string> Transitions_values(List<string> t, Nodo n, List<string> v)
+        public List<string> Transitions_values(List<string> t, Nodo n, List<string> v, List<string> s)
         {
-            Insert_FirstStatus(t,n);
-            Insert_Transitions(t, n, v);
+            Insert_FirstStatus(s,n);
+            Insert_Transitions(t, n, v,s);
             return t;
         }
 
+        //Method public the list
+        public List<string> FixList(List<string> list)
+        {
+            List<string> newList = new List<string>();
+            newList =  FixListNumberStatus(list);
+            return newList;
+        }
+
+        //Method public the list2
+        public List<string> FixList2(List<string> list)
+        {
+            List<string> newList = new List<string>();
+            newList = FixListNumber(list);
+            return newList;
+        }
         //------------------------------- PRIVATE FUNCTIONS ---------------------------------
 
         //method for insert values in first and last in leaf node
@@ -224,7 +240,7 @@ namespace ProyectoLenguajes.Class
         }//tested
 
         //method for insert the first root , because is first status
-        private void Insert_FirstStatus(List<string> t, Nodo n)
+        private void Insert_FirstStatus(List<string> s, Nodo n)
         {
             string first = "";
             foreach (var item in n.first)
@@ -232,20 +248,118 @@ namespace ProyectoLenguajes.Class
                 first = first+item + ",";
             }
             first = first.TrimEnd(',');
-            t.Add(first + ";");
-        }
+            s.Add(first);
+        }//tested
 
         //method for AFD transitions
-        private void Insert_Transitions(List<string> t , Nodo n, List<string> v)
+        private void Insert_Transitions(List<string> t , Nodo n, List<string> v, List<string> s)
+        {
+            for (int j = 0; j < s.Count; j++)
+            {
+                string[] status_value = s[j].Split(',');//status.Split(',');
+                string res = "";
+                foreach (var item in v)
+                {
+                    res1 = ""; //get result the comparations
+                    for (int i = 0; i < status_value.Length; i++)
+                    {
+                        int value = Convert.ToInt32(status_value[i]);
+                        GetResulComparations(value, item, n);
+                    }  //scroll news status for each one
+                    res1 = res1.TrimEnd(','); //delete last character
+                    //add new status if exists
+                    bool flag = false;
+                    foreach (var item2 in s)
+                    {
+                        if (item2 == res1)
+                            flag = true;
+                    }
+                    if (flag == false && res1 != "")
+                        s.Add(res1);
+                    if (res1 != "")
+                        res = res + res1 + ";";
+                    else
+                        res = res + "0;"; //if the result not found , then is zero --> id zero no exists                  
+                }//scroll name the columns
+                t.Add(res);
+            }//scroll the status 
+            
+        }//tested
+
+        //method for comparations values
+        private void GetResulComparations(int value, string name, Nodo n)
         {
             //scroll in PostOrder
             if (n.hi != null)
-                Insert_Values_Columns(t, n.hi);
+                GetResulComparations(value, name, n.hi);
             if (n.hd != null)
-                Insert_Values_Columns(t, n.hd);
-            
+                GetResulComparations(value, name, n.hd);
+            //search id
+            if (n.id == value)
+            {
+                if (n.valor == name)
+                {
+                    foreach (var item in n.follow)
+                        res1 = res1 + item.ToString() + ",";
+                }
+            }
+        }//testeed
+
+        //method for fix list
+        private List<string> FixListNumber(List<string> x)
+        {
+            List<string> n = new List<string>();
+            foreach (var item in x)
+            {
+                string res = "";
+                res = item.TrimStart('0');
+                res = res.TrimStart(';');
+                string[] number = res.Split(';');
+                string value = "";
+                for (int i = 0; i < number.Length; i++)
+                {
+                    string[] data = number[i].Split(',');
+                    int[] n_Data = new int[data.Length];
+                    for (int j = 0; j < n_Data.Length; j++)
+                    {
+                        if (data[j] != "")
+                            n_Data[j] = Convert.ToInt32(data[j]);
+                       
+                    }
+                    Array.Sort(n_Data); //Orden de menor a mayor
+                    for (int j = 0; j < n_Data.Length; j++)
+                        value = value + n_Data[j].ToString() + ",";
+                    value = value.TrimEnd(',');
+                    value = value + ";";
+                }
+                n.Add(value);
+            }
+            return n;
         }
 
+        //method for fix list
+        private List<string> FixListNumberStatus(List<string> x)
+        {
+            List<string> n = new List<string>();
+            foreach (var item in x)
+            {
+                string[] number = item.Split(',');
+                string value = "";
+                int[] n_Data = new int[number.Length];
+                for (int i = 0; i < n_Data.Length; i++)
+                {
+                    n_Data[i] = Convert.ToInt32(number[i]);
+                }
+                Array.Sort(n_Data); //Orden de menor a mayor
+                for (int j = 0; j < n_Data.Length; j++)
+                {
+                    value = value + n_Data[j].ToString() + ",";
+                }                     
+                value = value.TrimEnd(',');
+                n.Add(value);
+            }
+            return n;
+        }//tested
 
     }
 }

@@ -276,16 +276,18 @@ namespace ProyectoLenguajes
                 Node_Token = afd.Direct_Method(Tree_Tokens.Pop());
 
                 //Third Phase Transitions the AFD the Etree
-                List<string> Columns_Transitions = new List<string>();
-                List<string> Values_Transitions = new List<string>();
+                List<string> Columns_Transitions = new List<string>(); // Name the columns
+                List<string> Values_Transitions = new List<string>(); // Values the columns for each status
+                List<string> Status = new List<string>(); // Each status 
                 List<Transitions> L_Transitions = new List<Transitions>(); //save data the transitions
                 Columns_Transitions = afd.Transitions_Insert(Columns_Transitions,Node_Token); //save name the columns
-                Values_Transitions = afd.Transitions_values(Values_Transitions,Node_Token,Columns_Transitions);
-
+                Values_Transitions = afd.Transitions_values(Values_Transitions,Node_Token,Columns_Transitions, Status);
+                Status = afd.FixList(Status);//order number
+                Values_Transitions = afd.FixList2(Values_Transitions);
                 //Method for show in DataGridView
                 Show_FirstLast(Node_Token); //show in data grid view data the first and last
                 Show_Follow(Node_Token); // show in data grid view data the follow
-                Show_Transitions(Columns_Transitions); //shoq in data grid view data the transitions
+                Show_Transitions(Columns_Transitions,Status, Values_Transitions); //shoq in data grid view data the transitions
 
             }
             else
@@ -479,13 +481,38 @@ namespace ProyectoLenguajes
         }
 
         //method for show in datagridview the transitions
-        private void Show_Transitions(List<string> columns_v)
+        private void Show_Transitions(List<string> columns_v, List<string> status, List<string> values)
         {
-
+            //Add name the columns
             foreach (var item in columns_v)
             {
                 dataGridView2.Columns.Add(item,item);
             }
+            //add status and values for columns the row
+            for (int i = 0; i < status.Count; i++)
+            {
+                dataGridView2.Rows.Add(status[i]);
+            }
+            //scroll row
+            for (int i = 0; i < values.Count; i++)
+            {
+                //name the columns first row
+                    string[] aux = values[i].Split(';');
+                    //scroll columns
+                    for (int j = 0; j < columns_v.Count; j++)
+                    {
+                        //status
+                        if (j != 0)
+                        {
+                            if (aux[j - 1] == "0")
+                                dataGridView2.Rows[i].Cells[j].Value = "---";
+                            else
+                                dataGridView2.Rows[i].Cells[j].Value = aux[j - 1];                           
+                        }
+                    }
+            }
+
+
            
         }
 
