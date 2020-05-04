@@ -1,0 +1,6 @@
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\bin\Debug\Generic\GenericS\bin\Debug\GenericS.exe.config
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\bin\Debug\Generic\GenericS\bin\Debug\GenericS.exe
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\bin\Debug\Generic\GenericS\bin\Debug\GenericS.pdb
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\bin\Debug\Generic\GenericS\obj\Debug\GenericS.csprojAssemblyReference.cache
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\bin\Debug\Generic\GenericS\obj\Debug\GenericS.exe
+C:\Users\walte\OneDrive\Documentos\papucho\2020\7mo Ciclo\Lenguajes formales y automatas\Repositorio Proyecto\ProyectLenguajes2020\ProyectoLenguajes\bin\Debug\Generic\GenericS\obj\Debug\GenericS.pdb

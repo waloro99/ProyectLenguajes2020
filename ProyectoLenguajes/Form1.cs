@@ -9,9 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ProyectoLenguajes.Class;
 using System.IO;
-
-
-
+using System.Diagnostics;
 
 namespace ProyectoLenguajes
 {
@@ -541,8 +539,16 @@ namespace ProyectoLenguajes
         private void button3_Click(object sender, EventArgs e)
         {
             //Button generar programa
-            try
-            {
+            //try
+            //{
+                //------------------------------SAVE INFORMATION IN NEW PROGRAM-------------------
+
+                WriteDataFile();
+
+
+                //------------------------------COPY DIRECTORY AND FINISH PROGRAM-------------------
+
+                #region EXECUTE NEW PROGRAM
                 //code for get path the where save new folder
                 using (var folderDialog = new FolderBrowserDialog())
                 {
@@ -553,20 +559,36 @@ namespace ProyectoLenguajes
                     }
                 }
 
-
                 //The final part copy the new directory
-                DirectoryInfo origen = new DirectoryInfo(@"ProyectosPrimerAño");
+                DirectoryInfo origen = new DirectoryInfo(@"Generic");
                 DirectoryInfo destino = new DirectoryInfo(PathFileGeneric);
-                CopyDirectory(origen, destino);
+                CopyDirectory(origen, destino);            
                 MessageBox.Show("PROGRAMA GENERICO EXITOSO!!!");
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("ERROR");
-            }
-      
-        }
 
+                //Ejecutar el programa directamente del archivo creado
+                ProcessStartInfo info = new ProcessStartInfo();
+
+                info.UseShellExecute = true;
+                info.FileName = "GenericS.exe";
+                info.WorkingDirectory = PathFileGeneric + @"\GenericS\bin\Debug";
+
+                Process.Start(info);
+
+                //Exit de program
+                this.Dispose();
+                #endregion
+
+                //tested
+            //}
+            //catch (Exception)
+            //{
+            //    //ocurrio algo no esperado :(
+            //    MessageBox.Show("ERROR");
+            //}
+
+}
+
+        #region Functions Button Generar Programa
 
         //method for copy the new folder with new program
         private void CopyDirectory(DirectoryInfo origen, DirectoryInfo destino)
@@ -591,5 +613,48 @@ namespace ProyectoLenguajes
                 CopyDirectory(dir, new DirectoryInfo(destinoDir));
             }
         }
+
+        //Method for write in file but the new proyect
+        private void WriteDataFile()
+        {
+            using (StreamWriter writer = new StreamWriter(@"Generic\GenericS\data.txt"))
+            {
+
+                GenericScanner mGS = new GenericScanner();
+                //Construir el archivo
+
+                writer.WriteLine("wSets \n");
+                if (L_Sets.Count > 0)
+                {
+                    foreach (var item2 in L_Sets)
+                    {
+                        string set_values = mGS.GetValuesLists(item2);
+                        writer.WriteLine(set_values + "\n");
+                    }
+                 
+                }
+                writer.WriteLine("wTokens \n");
+                foreach (var item in L_Tokens)
+                {
+                    writer.WriteLine(item + "\n");
+                }
+                writer.WriteLine("wActions \n");
+                foreach (var item in L_Actions)
+                {
+                    writer.WriteLine(item + "\n");
+                }
+                writer.WriteLine("wError \n");
+                foreach (var item in L_Error)
+                {
+                    writer.WriteLine(item + "\n");
+                }
+                writer.WriteLine("wEstados \n");
+                writer.WriteLine("wFin");
+
+            }
+        }
+
+        #endregion
+
     }
 }

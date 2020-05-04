@@ -77,6 +77,7 @@
     <Compile Include="Class\AFD.cs" />
     <Compile Include="Class\ER.cs" />
     <Compile Include="Class\ETree.cs" />
+    <Compile Include="Class\GenericScanner.cs" />
     <Compile Include="Class\Token.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
