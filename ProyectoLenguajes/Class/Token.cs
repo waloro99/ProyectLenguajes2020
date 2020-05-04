@@ -128,7 +128,7 @@ namespace ProyectoLenguajes.Class
             //name token
             i.Name = "i";
             //values token = TOKEN --> reserved word
-            string I = "_-.,:;=<>+*(){}[]";
+            string I = "_'-.,:;=<>+*(){}[]";
             char[] Simbolos = I.ToArray();
             i.Values = Simbolos;
             //insert token in list

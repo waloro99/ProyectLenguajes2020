@@ -85,6 +85,8 @@ namespace ProyectoLenguajes.Class
                         flag_s1 = true;
                     else if (aux[i-1] == comilla)
                         flag_s1 = true;
+                    else if(aux[i-1] == '*' | aux[i-1] == '?' | aux[i-1] == '+')
+                        flag_s1 = true;
                     //After space
                     if (Is_CapitalLetter(aux[i + 1]))
                         flag_s2 = true;
@@ -105,6 +107,25 @@ namespace ProyectoLenguajes.Class
                     res = res + aux[i]; //insert symbol comilla 
                     if (aux[i+1] == comilla)
                         res = res +  "."; //concatenation
+                }
+                //cases specials
+                else if (aux[i] == '*')
+                {
+                    res = res + aux[i];
+                    if (aux[i + 1] == comilla)
+                        res = res + ".";
+                }
+                else if (aux[i] == '+')
+                {
+                    res = res + aux[i];
+                    if (aux[i + 1] == comilla)
+                        res = res + ".";
+                }
+                else if (aux[i] == '?')
+                {
+                    res = res + aux[i];
+                    if (aux[i + 1] == comilla)
+                        res = res + ".";
                 }
                 //normal
                 else

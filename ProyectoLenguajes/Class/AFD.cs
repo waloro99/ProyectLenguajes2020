@@ -23,7 +23,7 @@ namespace ProyectoLenguajes.Class
             Insert_First_Last(x);
 
             //3. Se inserta los valores de Follow en los nodos con recorrido post orden
-            Insert_Follow(x);           
+            Insert_Follow(x);
 
             return x;
         }
@@ -40,8 +40,8 @@ namespace ProyectoLenguajes.Class
         //Last phase for completed table the AFD Transitions
         public List<string> Transitions_values(List<string> t, Nodo n, List<string> v, List<string> s)
         {
-            Insert_FirstStatus(s,n);
-            Insert_Transitions(t, n, v,s);
+            Insert_FirstStatus(s, n);
+            Insert_Transitions(t, n, v, s);
             return t;
         }
 
@@ -49,7 +49,7 @@ namespace ProyectoLenguajes.Class
         public List<string> FixList(List<string> list)
         {
             List<string> newList = new List<string>();
-            newList =  FixListNumberStatus(list);
+            newList = FixListNumberStatus(list);
             return newList;
         }
 
@@ -175,7 +175,7 @@ namespace ProyectoLenguajes.Class
                 foreach (var item in n.hi.last)
                 {
                     foreach (var item2 in n.hd.first)
-                        InOrderFollow(item, item2, n);                
+                        InOrderFollow(item, item2, n);
                 }
             }
             //2. Follow = L(c1) -> F(c1)
@@ -192,9 +192,9 @@ namespace ProyectoLenguajes.Class
             {
                 //Se sabe que si llego aqui significa que es una hoja
                 foreach (var item in n.first)
-                    n.id = item;               
-            }       
-            
+                    n.id = item;
+            }
+
         }//tested
 
         //method for scroll in order for follows
@@ -206,7 +206,7 @@ namespace ProyectoLenguajes.Class
             if (n.id == id)
                 n.follow.Add(valor);
             if (n.hd != null)
-                InOrderFollow(id,valor,n.hd);
+                InOrderFollow(id, valor, n.hd);
         }//tested
 
         //method for scroll nodo for each name unico
@@ -245,14 +245,14 @@ namespace ProyectoLenguajes.Class
             string first = "";
             foreach (var item in n.first)
             {
-                first = first+item + ",";
+                first = first + item + ",";
             }
             first = first.TrimEnd(',');
             s.Add(first);
         }//tested
 
         //method for AFD transitions
-        private void Insert_Transitions(List<string> t , Nodo n, List<string> v, List<string> s)
+        private void Insert_Transitions(List<string> t, Nodo n, List<string> v, List<string> s)
         {
             for (int j = 0; j < s.Count; j++)
             {
@@ -274,7 +274,7 @@ namespace ProyectoLenguajes.Class
                         if (item2 == res1)
                             flag = true;
                     }
-                    if (flag == false && res1 != "")
+                    if (flag == false && res1 != "" && AgainVerification(s, res1) == false)
                         s.Add(res1);
                     if (res1 != "")
                         res = res + res1 + ";";
@@ -283,7 +283,7 @@ namespace ProyectoLenguajes.Class
                 }//scroll name the columns
                 t.Add(res);
             }//scroll the status 
-            
+
         }//tested
 
         //method for comparations values
@@ -300,7 +300,12 @@ namespace ProyectoLenguajes.Class
                 if (n.valor == name)
                 {
                     foreach (var item in n.follow)
-                        res1 = res1 + item.ToString() + ",";
+                    {
+                        if (!res1.Contains(item.ToString()))
+                        {
+                            res1 = res1 + item.ToString() + ",";
+                        }
+                    }
                 }
             }
         }//testeed
@@ -324,7 +329,7 @@ namespace ProyectoLenguajes.Class
                     {
                         if (data[j] != "")
                             n_Data[j] = Convert.ToInt32(data[j]);
-                       
+
                     }
                     Array.Sort(n_Data); //Orden de menor a mayor
                     for (int j = 0; j < n_Data.Length; j++)
@@ -354,12 +359,51 @@ namespace ProyectoLenguajes.Class
                 for (int j = 0; j < n_Data.Length; j++)
                 {
                     value = value + n_Data[j].ToString() + ",";
-                }                     
+                }
                 value = value.TrimEnd(',');
                 n.Add(value);
             }
             return n;
         }//tested
 
+        //method for verification again 
+        private bool AgainVerification(List<string> s, string res)
+        {
+            bool flag = false;
+            for (int i = 0; i < s.Count; i++)
+            {
+                string[] aux = s[i].Split(',');
+                string[] aux2 = res.Split(',');
+                int[] auxI = new int[aux.Length];
+                int[] auxI2 = new int[aux2.Length];
+                for (int j = 0; j < aux.Length; j++)
+                {
+                    auxI[j] = Convert.ToInt32(aux[j]);
+                }
+                for (int j = 0; j < aux2.Length; j++)
+                {
+                    auxI2[j] = Convert.ToInt32(aux2[j]);
+                }
+                Array.Sort(auxI);
+                Array.Sort(auxI2);
+                string res1 = "";
+                string res2 = "";
+                for (int j = 0; j < auxI.Length; j++)
+                {
+                    res1 = res1 + auxI[j];
+                }
+                for (int j = 0; j < auxI2.Length; j++)
+                {
+                    res2 = res2 + auxI2[j];
+                }
+                if (res1 == res2)
+                {
+                    flag = true;
+                    i = s.Count;
+                }
+
+            }
+            return flag;
+        }
     }
 }

@@ -20,6 +20,7 @@ namespace ProyectoLenguajes
         // ----------------------------------------VAR GLOBAL-------------------------------------------
 
         public string PathFile = string.Empty; // var path the file
+        public string PathFileGeneric = string.Empty; // var path the new program 
         //lists
         public List<string> L_Sets = new List<string>(); //save data section sets
         public List<string> L_Tokens = new List<string>(); //save data section sets
@@ -94,6 +95,7 @@ namespace ProyectoLenguajes
                 PathFile = openFileDialog.FileName;
                 button2.Enabled = true;
                 textBox1.Enabled = true;
+                button3.Enabled = true;
             }
 
             textBox1.Text = PathFile;
@@ -280,14 +282,14 @@ namespace ProyectoLenguajes
                 List<string> Columns_Transitions = new List<string>(); // Name the columns
                 List<string> Values_Transitions = new List<string>(); // Values the columns for each status
                 List<string> Status = new List<string>(); // Each status   
-                Columns_Transitions = afd.Transitions_Insert(Columns_Transitions,Node_Token); //save name the columns
-                Values_Transitions = afd.Transitions_values(Values_Transitions,Node_Token,Columns_Transitions, Status);
+                Columns_Transitions = afd.Transitions_Insert(Columns_Transitions, Node_Token); //save name the columns
+                Values_Transitions = afd.Transitions_values(Values_Transitions, Node_Token, Columns_Transitions, Status);
                 Status = afd.FixList(Status);//order number
                 Values_Transitions = afd.FixList2(Values_Transitions);
                 //Method for show in DataGridView
                 Show_FirstLast(Node_Token); //show in data grid view data the first and last
                 Show_Follow(Node_Token); // show in data grid view data the follow
-                Show_Transitions(Columns_Transitions,Status, Values_Transitions); //shoq in data grid view data the transitions
+                Show_Transitions(Columns_Transitions, Status, Values_Transitions); //shoq in data grid view data the transitions
 
                 //show tree in image
                 //string ruta = T_Tokens.graphic(Node_Token);
@@ -345,7 +347,7 @@ namespace ProyectoLenguajes
             {
                 if (i != 0)
                 {
-                    if (i < 3 )
+                    if (i < 3)
                     {
                         for (int j = 0; j < numeros.Length; j++)
                         {
@@ -390,7 +392,7 @@ namespace ProyectoLenguajes
                     {
                         v = true;
                     }
-                    if(v == true)
+                    if (v == true)
                     {
                         cadena += err[i];
                     }
@@ -421,7 +423,7 @@ namespace ProyectoLenguajes
                 {
                     num += x[cont];
                     cont++;
-                    j =-1;
+                    j = -1;
                 }
             }
             int res = Convert.ToInt32(num);
@@ -438,12 +440,12 @@ namespace ProyectoLenguajes
             for (int i = 0; i < x.Length; i++)
             {
                 if (x[i] != ' ' && x[i] != '\t')
-                 {
+                {
                     if (x[i] == '=')
                         return res;
                     else
                         res = res + x[i];
-                 }  
+                }
             }
             return res;
         }//tested
@@ -460,7 +462,7 @@ namespace ProyectoLenguajes
             string last = "";
             string nullable = "";
             foreach (var item in n.first)
-                first = first + item.ToString() +",";
+                first = first + item.ToString() + ",";
             foreach (var item in n.last)
                 last = last + item.ToString() + ",";
             if (n.nullable == false)
@@ -469,7 +471,7 @@ namespace ProyectoLenguajes
                 nullable = "true";
             first = first.TrimEnd(',');
             last = last.TrimEnd(',');
-            dataGridView1.Rows.Add(n.valor,first,last,nullable);
+            dataGridView1.Rows.Add(n.valor, first, last, nullable);
         }
 
         //method for show in datagridview the follow
@@ -487,7 +489,7 @@ namespace ProyectoLenguajes
                     follow = follow + item.ToString() + ",";
                 follow = follow.TrimEnd(',');
                 dataGridView3.Rows.Add(n.id, follow);
-            }        
+            }
         }
 
         //method for show in datagridview the transitions
@@ -496,7 +498,7 @@ namespace ProyectoLenguajes
             //Add name the columns
             foreach (var item in columns_v)
             {
-                dataGridView2.Columns.Add(item,item);
+                dataGridView2.Columns.Add(item, item);
             }
             //add status and values for columns the row
             for (int i = 0; i < status.Count; i++)
@@ -507,23 +509,23 @@ namespace ProyectoLenguajes
             for (int i = 0; i < values.Count; i++)
             {
                 //name the columns first row
-                    string[] aux = values[i].Split(';');
-                    //scroll columns
-                    for (int j = 0; j < columns_v.Count; j++)
+                string[] aux = values[i].Split(';');
+                //scroll columns
+                for (int j = 0; j < columns_v.Count; j++)
+                {
+                    //status
+                    if (j != 0)
                     {
-                        //status
-                        if (j != 0)
-                        {
-                            if (aux[j - 1] == "0")
-                                dataGridView2.Rows[i].Cells[j].Value = "---";
-                            else
-                                dataGridView2.Rows[i].Cells[j].Value = aux[j - 1];                           
-                        }
+                        if (aux[j - 1] == "0")
+                            dataGridView2.Rows[i].Cells[j].Value = "---";
+                        else
+                            dataGridView2.Rows[i].Cells[j].Value = aux[j - 1];
                     }
+                }
             }
 
 
-           
+
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -534,6 +536,60 @@ namespace ProyectoLenguajes
         private void label3_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            //Button generar programa
+            try
+            {
+                //code for get path the where save new folder
+                using (var folderDialog = new FolderBrowserDialog())
+                {
+                    if (folderDialog.ShowDialog() == DialogResult.OK)
+                    {
+                        //pathfilegeneric contain the new path
+                        PathFileGeneric = folderDialog.SelectedPath;
+                    }
+                }
+
+
+                //The final part copy the new directory
+                DirectoryInfo origen = new DirectoryInfo(@"ProyectosPrimerAño");
+                DirectoryInfo destino = new DirectoryInfo(PathFileGeneric);
+                CopyDirectory(origen, destino);
+                MessageBox.Show("PROGRAMA GENERICO EXITOSO!!!");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("ERROR");
+            }
+      
+        }
+
+
+        //method for copy the new folder with new program
+        private void CopyDirectory(DirectoryInfo origen, DirectoryInfo destino)
+        {
+            if (!destino.Exists)
+            {
+                destino.Create();
+            }
+
+            FileInfo[] files = origen.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                file.CopyTo(Path.Combine(destino.FullName, file.Name));
+            }
+
+            // Subcarpetas
+            DirectoryInfo[] dirs = origen.GetDirectories();
+            foreach (DirectoryInfo dir in dirs)
+            {
+                string destinoDir = Path.Combine(destino.FullName, dir.Name);
+                // llamada recusriva
+                CopyDirectory(dir, new DirectoryInfo(destinoDir));
+            }
         }
     }
 }

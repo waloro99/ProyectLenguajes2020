@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProyectoLenguajes.exe" size="47584">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="ProyectoLenguajes.exe" size="49632">
       <assemblyIdentity name="ProyectoLenguajes" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>dMh+oIgk2tSBmBexhFQneeejfiNTimDDhZp93EniS/0=</dsig:DigestValue>
+        <dsig:DigestValue>1zLZP2UqXUR62Oc0xFUYb9kTo2blRW8IE18h4N8hVx8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

@@ -298,8 +298,8 @@ namespace ProyectoLenguajes
                             }
                             else if (!Is_Token(c[i].ToString(), tokens, "k"))
                             {
-                                if(i != c.Length - 1)
-                                    return i + item;
+                                    if (i != c.Length - 1)
+                                        return i + item;                             
                             }
 
                         }
