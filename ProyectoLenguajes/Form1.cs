@@ -27,6 +27,10 @@ namespace ProyectoLenguajes
 
         //list for save names the sets
         public List<string> N_Sets = new List<string>(); //save data section sets
+        public List<string> Columns_Transitions = new List<string>(); // Name the columns
+        public List<string> Values_Transitions = new List<string>(); // Values the columns for each status
+        public List<string> Status = new List<string>(); // Each status  
+        public string LastFollow = string.Empty;
 
         public Form1()
         {
@@ -277,9 +281,7 @@ namespace ProyectoLenguajes
                 Node_Token = afd.Direct_Method(Tree_Tokens.Pop());
 
                 //Third Phase Transitions the AFD the Etree
-                List<string> Columns_Transitions = new List<string>(); // Name the columns
-                List<string> Values_Transitions = new List<string>(); // Values the columns for each status
-                List<string> Status = new List<string>(); // Each status   
+                 
                 Columns_Transitions = afd.Transitions_Insert(Columns_Transitions, Node_Token); //save name the columns
                 Values_Transitions = afd.Transitions_values(Values_Transitions, Node_Token, Columns_Transitions, Status);
                 Status = afd.FixList(Status);//order number
@@ -288,6 +290,9 @@ namespace ProyectoLenguajes
                 Show_FirstLast(Node_Token); //show in data grid view data the first and last
                 Show_Follow(Node_Token); // show in data grid view data the follow
                 Show_Transitions(Columns_Transitions, Status, Values_Transitions); //shoq in data grid view data the transitions
+
+                //Me servira para la fase 3
+                GetLastFollow(Node_Token);
 
                 //show tree in image
                 //string ruta = T_Tokens.graphic(Node_Token);
@@ -526,6 +531,18 @@ namespace ProyectoLenguajes
 
         }
 
+        //method for get last follow
+        private void GetLastFollow(Nodo n)
+        {
+            //scroll in PostOrder
+            if (n.hi != null)
+                GetLastFollow(n.hi);
+            if (n.hd != null)
+                GetLastFollow(n.hd);
+            if (n.valor == "#")
+                LastFollow = n.id.ToString();
+        }
+
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -543,7 +560,11 @@ namespace ProyectoLenguajes
             //{
                 //------------------------------SAVE INFORMATION IN NEW PROGRAM-------------------
 
-                WriteDataFile();
+                WriteDataFile(); //pasa los datos relevantes para el scanner
+
+                GenericScanner gs = new GenericScanner();
+                string[] lines = File.ReadAllLines(@"Generic\GenericS\bin\Debug\data.txt");
+                gs.NewProgramCS(lines); //modificamos el programa a ejecutar
 
 
                 //------------------------------COPY DIRECTORY AND FINISH PROGRAM-------------------
@@ -565,14 +586,17 @@ namespace ProyectoLenguajes
                 CopyDirectory(origen, destino);            
                 MessageBox.Show("PROGRAMA GENERICO EXITOSO!!!");
 
+                /* NO SE ACTUALIZA EL .EXE CUANDO LO EJECUTO
+
                 //Ejecutar el programa directamente del archivo creado
                 ProcessStartInfo info = new ProcessStartInfo();
 
                 info.UseShellExecute = true;
                 info.FileName = "GenericS.exe";
                 info.WorkingDirectory = PathFileGeneric + @"\GenericS\bin\Debug";
-
                 Process.Start(info);
+
+                */
 
                 //Exit de program
                 this.Dispose();
@@ -586,7 +610,7 @@ namespace ProyectoLenguajes
             //    MessageBox.Show("ERROR");
             //}
 
-}
+        }
 
         #region Functions Button Generar Programa
 
@@ -617,38 +641,61 @@ namespace ProyectoLenguajes
         //Method for write in file but the new proyect
         private void WriteDataFile()
         {
-            using (StreamWriter writer = new StreamWriter(@"Generic\GenericS\data.txt"))
+            using (StreamWriter writer = new StreamWriter(@"Generic\GenericS\bin\Debug\data.txt"))
             {
 
                 GenericScanner mGS = new GenericScanner();
                 //Construir el archivo
 
-                writer.WriteLine("wSets \n");
+                writer.WriteLine("wSets");
                 if (L_Sets.Count > 0)
                 {
                     foreach (var item2 in L_Sets)
                     {
                         string set_values = mGS.GetValuesLists(item2);
-                        writer.WriteLine(set_values + "\n");
+                        writer.WriteLine(set_values);
                     }
                  
                 }
-                writer.WriteLine("wTokens \n");
+                writer.WriteLine("wTokens");
                 foreach (var item in L_Tokens)
                 {
-                    writer.WriteLine(item + "\n");
+                    writer.WriteLine(item);
                 }
-                writer.WriteLine("wActions \n");
+                writer.WriteLine("wActions");
                 foreach (var item in L_Actions)
                 {
-                    writer.WriteLine(item + "\n");
+                    writer.WriteLine(item);
                 }
-                writer.WriteLine("wError \n");
+                writer.WriteLine("wError");
                 foreach (var item in L_Error)
                 {
-                    writer.WriteLine(item + "\n");
+                    writer.WriteLine(item);
                 }
-                writer.WriteLine("wEstados \n");
+                writer.WriteLine("wNombreEstados");
+                bool flag = false; //evito que se copie el primer estado que es "ESTADO"
+                foreach (var item in Columns_Transitions)
+                {
+                    if (flag == true)
+                        writer.WriteLine(item);
+                    flag = true;
+                }
+                writer.WriteLine("wEstados");              
+                foreach (var item in Status)
+                {
+                    writer.WriteLine(item);
+                }
+                writer.WriteLine("wValoresEstado");
+                for (int i = 0; i < Values_Transitions.Count; i++)
+                {
+                    //elimino el estado de "ESTADO" no servia para nada
+                    Values_Transitions[i] = Values_Transitions[i].TrimEnd(';');
+                    Values_Transitions[i] = Values_Transitions[i].TrimEnd('0');
+                    Values_Transitions[i] = Values_Transitions[i].TrimEnd(';');
+                    writer.WriteLine(Values_Transitions[i]);
+                }
+                writer.WriteLine("wEstadoFinal");
+                writer.WriteLine(LastFollow);
                 writer.WriteLine("wFin");
 
             }

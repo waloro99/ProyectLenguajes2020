@@ -1,0 +1,35 @@
+wSets
+LETRA,ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz_
+DIGITO,0123456789
+wTokens
+	TOKEN 1= DIGITO DIGITO *
+	TOKEN 2='='
+	TOKEN 3=':''='
+	TOKEN 4= LETRA ( LETRA | DIGITO )*   { RESERVADAS() } 
+wActions
+	5 = 'PROGRAM'
+	6 = 'INCLUDE'
+	7 = 'CONST'
+	8 = 'TYPE'
+wError
+ERROR = 9
+wNombreEstados
+DIGITO
+'='
+':'
+LETRA
+wEstados
+1,3,4,6
+2,9
+9
+5
+7,8,9
+wValoresEstado
+2,9;9;5;7,8,9
+2,9;0;0;0
+0;0;0;0
+0;9;0;0
+7,8,9;0;0;7,8,9
+wEstadoFinal
+9
+wFin
