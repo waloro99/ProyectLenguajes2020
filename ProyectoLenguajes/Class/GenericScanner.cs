@@ -465,7 +465,14 @@ namespace ProyectoLenguajes.Class
         {
             string c = '"'.ToString();
             if (status[0] == Convert.ToChar("'"))
-                return "y[i] == " + status; //y[i] == '='
+            {
+                if (status == "'''")
+                {
+                    return "y[i] == Convert.ToChar("+c+"'"+c+")"; //y[i] == ''' --> caso particular ''' :(
+                }
+                else
+                    return "y[i] == " + status; //y[i] == '=' --> caso particular ''' :(
+            }                
             else
                 return "Comparar(sets, y[i], "+c+status+c+")"; //Comparar(sets, y[i], "DIGITO")         
         }
