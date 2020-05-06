@@ -556,8 +556,8 @@ namespace ProyectoLenguajes
         private void button3_Click(object sender, EventArgs e)
         {
             //Button generar programa
-            //try
-            //{
+            try
+            {
                 //------------------------------SAVE INFORMATION IN NEW PROGRAM-------------------
 
                 WriteDataFile(); //pasa los datos relevantes para el scanner
@@ -603,12 +603,12 @@ namespace ProyectoLenguajes
                 #endregion
 
                 //tested
-            //}
-            //catch (Exception)
-            //{
-            //    //ocurrio algo no esperado :(
-            //    MessageBox.Show("ERROR");
-            //}
+            }
+            catch (Exception)
+            {
+                //ocurrio algo no esperado :(
+                MessageBox.Show("ERROR");
+            }
 
         }
 
