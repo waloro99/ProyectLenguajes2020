@@ -133,7 +133,7 @@ namespace ProyectoLenguajes
                 L_Tokens = rf.SplitTokens(res); //tested
                 L_Actions = rf.SplitActions(res);  //tested
                 L_Error = rf.SplitError(res);  //tested
-
+                L_Actions = rf.FixActions(L_Actions); //testeed
                 //firs filter (key words)
                 if (F_KeyWords(L_Tokens, L_Actions, L_Error) != "GG")
                 {
@@ -554,6 +554,7 @@ namespace ProyectoLenguajes
         }
 
         private void button3_Click(object sender, EventArgs e)
+
         {
             //Button generar programa
             try

@@ -186,6 +186,20 @@ namespace ProyectoLenguajes
             return Error;//send data only TOKENS
         }
 
+        //Method fix actions
+        public List<string> FixActions(List<string> a)
+        {
+            List<string> res = new List<string>();
+
+            foreach (var item in a)
+            {
+                if (item.Contains('='))
+                    res.Add(item);
+            }
+
+            return res;
+        }
+
         //method for search specific section
         public bool WordIncorrect(string a, string b)
         {
@@ -666,9 +680,13 @@ namespace ProyectoLenguajes
                                 {
                                     return i + item;
                                 }
-                                else if (!Is_Token(a[i].ToString(), tokens, "a") && Is_Token(temp.ToString(), tokens, "h"))
+                                else if ( !Is_Token(a[i].ToString(), tokens, "a") && Is_Token(temp.ToString(), tokens, "h"))
                                 {
-                                    return i + item;
+                                    if (!Is_Token(a[i].ToString(), tokens, "c"))
+                                    {
+                                        return i + item;
+                                    }
+                                 
                                 }
                             }
                             if (comilla2 == 1)

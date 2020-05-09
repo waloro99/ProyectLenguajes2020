@@ -279,7 +279,7 @@
             return res;
         }
 
-        private static string GetCaracter(string x)
+       private static string GetCaracter(string x)
         {
             string res = "";
             string[] lines = File.ReadAllLines(@"data.txt");
@@ -300,7 +300,7 @@
 
             for (int i = 0; i < tokens.Count; i++)
             {
-                if (CompareCaracter(tokens[i],x))
+                if (CompareCaracter(tokens[i], x))
                 {
                     string num = ObtenerNumeroToken(tokens[i]);
                     res = x + " = " + num;
